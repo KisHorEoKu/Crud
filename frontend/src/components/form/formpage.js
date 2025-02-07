@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Confirmation } from '../confirmation/confirmation';
+
+
  const Formpage = () => {
 
     const [formData ,setFormData] = useState({
@@ -195,8 +197,6 @@ import { Confirmation } from '../confirmation/confirmation';
             break;
         }
     };
-      
-   
 
   return (
     
