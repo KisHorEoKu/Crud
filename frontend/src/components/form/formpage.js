@@ -101,6 +101,13 @@ import { Confirmation } from '../confirmation/confirmation';
         else if (data.phone.length != 10){
           errors.phone ="Number should be 10 digits";
         }
+        else if(data.phone.length == 10){
+          let result ="" +data.phone;
+          const first = parseInt(result.charAt(0));
+          if(first !== "6"  ||  first !== "7" || first !== "8" || first !== "9"){
+              errors.phone ="Invalid number";
+          }
+    }
 
         if(!data.password.trim()) errors.password = "Enter the password";
         if(!data.confirm_password.trim()) errors.confirm_password ="Enter the confirm password"
