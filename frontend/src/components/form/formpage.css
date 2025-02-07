@@ -1,0 +1,33 @@
+body{margin: 0 ; border: none;}
+/* formpage */
+.main{background-image: linear-gradient(to right bottom, #4c7cec, #6f7df1, #8c7ef5, #a77ff8, #c07ff9);}
+*{margin: 0;}
+.form{width: 60%; margin: 0 auto;padding-top: 3%;}
+.formmain{background-color: #fff;padding: 4%; border-radius: 5px;}
+.ftxt > h3,.intxt > h3,.rtxt > h3{text-transform: capitalize; color: #000; font-size: 1.8vw;}
+.formbdy > form{margin-top: 2%;}
+.inp {display: flex;flex-direction: column;width: 45%;margin-bottom: 2%;}
+.inp > label{text-transform: capitalize; margin-bottom: 3%;    font-size: 1.4vw;}
+.inpfild{width: 100%;display: flex;flex-wrap: wrap;}
+.inpfild .inp:nth-child(odd){margin-right: 7%;}
+.inp > input{padding: 3%; font-size: 1.2vw;border: 1px solid #b8b8b8;border-radius: 4px;}
+.inp12main{display: flex;}
+.inp12{width: 25%;}
+.inp12main{margin: 2% 0%;}
+.inp12main > .inp12:not(:last-child){margin-right: 4%;}
+.inp12 > input{margin-right: 4%;}
+.inp12 > label{text-transform: capitalize;    font-size: 1.4vw;}
+.rndinpsmain{display: flex;flex-wrap: wrap; margin: 2% 0;}
+.rnginp{width: 25%;}
+.rnginp > label{font-size: 1.4vw; text-transform: capitalize;}
+.rnginp{margin-right: 4%;}
+.inp > select{padding: 3%;border: 1px solid #b8b8b8;border-radius: 4px;}
+.fsubmit{width: 50%; margin: 0 auto;padding: 1% 0;}
+.submitinp{text-align: center; margin-top: 5%;}
+
+.fsubmit {background-image: linear-gradient(to right, #4776E6 0%, #8E54E9  51%, #4776E6  100%)}
+.fsubmit {margin: 10px;padding: 15px 45px;
+   text-align: center;text-transform: uppercase;transition: 0.5s;background-size: 200% auto;
+   color: white;box-shadow: 0 0 20px #eee;border-radius: 10px;border: none;margin: 0 auto;}
+.fsubmit:hover {background-position: right center; color: #fff;text-decoration: none;}
+ 
