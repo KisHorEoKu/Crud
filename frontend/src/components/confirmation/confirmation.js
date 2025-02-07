@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 export const Confirmation = ({type}) => {
     const [show , setShow] = useState(true);
     const hide = (e) =>{
+        console.log("hided")
         setShow(false)
     }
   return (
-    <div class= {type === "1" ? 'popup show': 'popup'} >
+    <div class= {show ? 'popup show': 'popup'} >
         <div class="popupmain">
                 <div id="overlay" >
                     <div id="message">
