@@ -49,6 +49,7 @@ import { Confirmation } from '../confirmation/confirmation';
                 
             }
             else{
+              
             }
         }
        
@@ -104,7 +105,7 @@ import { Confirmation } from '../confirmation/confirmation';
         else if(data.phone.length == 10){
           let result ="" +data.phone;
           const first = parseInt(result.charAt(0));
-          if(first !== "6"  ||  first !== "7" || first !== "8" || first !== "9"){
+          if(!first.includes(6,7,8,9)){
               errors.phone ="Invalid number";
           }
     }
