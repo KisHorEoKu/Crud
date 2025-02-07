@@ -98,9 +98,8 @@ import { Confirmation } from '../confirmation/confirmation';
         }
 
         if(!data.phone.trim()) errors.phone ="Enter the number";
-        else if (data.phone){
-            const result = data.phone.includes();
-
+        else if (data.phone.length != 10){
+          errors.phone ="Number should be 10 digits";
         }
 
         if(!data.password.trim()) errors.password = "Enter the password";
