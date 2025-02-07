@@ -105,8 +105,8 @@ import { Confirmation } from '../confirmation/confirmation';
         else if(data.phone.length == 10){
           let result ="" +data.phone;
           const first = parseInt(result.charAt(0));
-          if(!data.email.trim()  && !first.includes(6,7,8,9)){
-              errors.phone ="Invalid number";
+          if (!data.email.trim() && ![6, 7, 8, 9].includes(first)) {
+            errors.phone = "Invalid number";
           }
     }
 
