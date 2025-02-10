@@ -36,15 +36,15 @@
     transform: rotate(360deg);
   }
 }
-
+a{text-decoration: none; color: #000;}
 /* formpage */
 .main{background-image: linear-gradient(to right bottom, #75abdd, #7ba7e9, #8ba1f2, #a398f6, #c08cf3);}
 *{margin: 0;}
 /* body{background: url(../public/images/Responsive\ Registration\ Form\ in\ HTML\ &\ CSS\ \(1\).jpg) no-repeat; height: 4000px;} */
-.form{width: 52%; margin: 0 auto;padding-top: 7%;padding-left: 1.7%;padding-bottom: 6%;}
+.form{width: 90%; margin: 0 auto;padding-top: 8%;padding-left: 1.7%;padding-bottom: 2.5%;}
 .formmain{
   background-color: #fff;
-  padding: 4%; border-radius: 5px;}
+  padding:2% 3%; border-radius: 5px;}
 .ftxt > h3{     font-weight: 400;  text-transform: capitalize;font-family: "outfit" ,serif; color: #000; font-size: 2vw; letter-spacing: 0.01em;}
 .intxt > h3,.rtxt > h3{ width: 18%;    font-weight: 400;  text-transform: capitalize;font-family: "outfit" ,serif; color: #000; font-size: 1.6vw; letter-spacing: 0.01em;}
 .intxt,.rtxt{display: flex;}
@@ -54,15 +54,18 @@
   color: #ff0000;
   align-items: center;
 }
-.formbdy > form{margin-top: 3.6%;}
-.inp {position: relative; display: flex;flex-direction: column;width: 46.5%;margin-bottom: 5.5%;}
+.formbdy > form{margin-top: 2.6%;}
+.inp {position: relative; display: flex;flex-direction: column;width: 24%;margin-bottom: 2.5%;}
 .inp > span{color: #ff0000; font-size: 1.1vw;}
-.inp > label{text-transform: capitalize; margin-bottom: 3%; font-family: "outfit" ,serif;   font-size: 1.31vw;}
+.inp > label{text-transform: capitalize; margin-bottom: 3%; font-family: "outfit" ,serif;   font-size: 1.2vw;}
 .inpfild{width: 100%;display: flex;flex-wrap: wrap;}
-.inpfild .inp:nth-child(odd){margin-right: 6.3%;}
+.collection{display: flex; margin-top: 2%;} 
+.inpset,.range{width: 50%;}
+.inpfild .inp:not(:nth-child(4)){  margin-right: 1.3%;
+}
 .inp > input{padding:3.7% 5%; font-size: 1.2vw;border: 1px solid #b8b8b8;border-radius: 4px;color: #888787;}
 .inp12main{display: flex;}
-.inp12{width: 27%;}
+.inp12{width: 30%;}
 .inp12main{margin: 2.2% 0%;}
 .inp12main > .inp12:not(:last-child){margin-right: 0.5%;}
 .inp12 > input {
@@ -70,32 +73,21 @@
   font-size: 2em;
   width: 18px;
   height: 17px;
-}.inp12 > label{   font-size: 1.29vw;}
+}.inp12 > label{   font-size: 1.2vw;}
 .rndinpsmain{display: flex;flex-wrap: wrap; margin: 2% 0;}
 .rnginp{width: 25%;}
-.rnginp > label{font-size: 1.29vw; text-transform: capitalize;}
+.rnginp > label{font-size: 1.2vw; text-transform: capitalize;}
 .rnginp{margin-right: 3%;}
 .inp > select{padding: 3%;border: 1px solid #b8b8b8;border-radius: 4px; font-size: 1.2vw; color: #888787;}
 .fsubmit{width: 50%; margin: 0 auto;padding: 1% 0;}
-.submitinp{text-align: center; margin-top: 5%;}
-
+.submitinp{text-align: center; margin-top: 1%;}
 .fsubmit {background-image: linear-gradient(to right bottom, #75abdd, #7ba7e9, #8ba1f2, #a398f6, #c08cf3);}
-.fsubmit { cursor: pointer; margin: 10px;padding: 2% 0%;width: 100%; font-family: "outfit" ,serif;letter-spacing: 0.11vw;
+.fsubmit { cursor: pointer; margin: 10px;padding: 1% 0%;width: 100%; font-family: "outfit" ,serif;letter-spacing: 0.11vw;
   font-size: 1.39vw;text-align: center;text-transform: capitalize;transition: 0.5s;background-size: 200% auto;
    color: white;box-shadow: 0 0 20px #eee;border-radius: 4px;border: none;margin: 0 auto;}
 .fsubmit:hover {background-position: right center; color: #fff;text-decoration: none;}
 .rnginp > input{margin-right: 12%;}
-.inpset{
-  margin-top: 1.6%;
-}
-.inp > span {
-  color: #ff0000;
-  font-size: 0.8vw;
-  position: absolute;
-  bottom: -21%;
-  left: 1%;
-}
-
+.inp > span {color: #ff0000;font-size: 0.8vw;position: absolute;bottom: -21%;left: 1%;}
 .container {
   display: block;
   position: relative;
@@ -106,8 +98,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-}
+  user-select: none;}
 
 .container input {
   position: absolute;
@@ -135,11 +126,13 @@
   background-color: #2196F3;
 }
 
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+.btns{
+  display: flex
+;
+  justify-content: space-evenly;
 }
+.btns > button{cursor: pointer;}
+.checkmark:after {content: "";position: absolute;display: none;}
 
 .container input:checked ~ .checkmark:after {
   display: block;
@@ -186,15 +179,56 @@ img{height: auto; width: 100%;}
 #invert{
   padding: 2% 0;
 }
-#okbtn {
-  margin: 3% 0%;
-  padding: 2% 5%;
-  border-radius: 7px;
-  background-color: #000;
-  color: #fff;
+#okbtn {margin: 3% 0%;padding: 2% 5%;border-radius: 7px;background-color: #000;color: #fff;}
+.ftxt > h3 {transition: all 0.5s ease-in-out;}
+.headermain{
+  width: 88%;
+  margin: 0 auto;
+  display: flex;
+  padding: 1.2% 0%;
+}
+.navbar > header{ position: fixed; width: 100%; background-color: rgba(255, 255, 255, .6); z-index: 99;}
+.hedleft,.hedrit{width: 20%;}
+.hedcenter{width: 80%;display: flex;align-items: center;}
+.hedcenter > ul > li:not(:last-child){margin-right: 2%;}
+.hedcenter > ul{display: flex;width: 100%;    justify-content: center;}
+.hedcenter > ul > li > a{    font-size: 1.4vw; position: relative; text-align: center  ;    padding: 15% 1%;display: block;  color: #000; text-transform: capitalize;  text-decoration: none; margin-right: 2%;}
+.hedcenter > ul > li{ margin-right: 2%; width: 10%;}
+.ritmain{display: flex;}
+.icons {
+  padding: 5% 7%;
+  background-color: #f3f0f0;
+  margin-right: 7%;
+  border-radius: 50%;
+}
+.userinfo{display: flex; align-items: center;}
+.hedleft > a > h3{font-size: 2.4vw;}
+.hedrit{ display: flex;align-items: center;}
+.hedrit > a{text-decoration: none; display: block; width: 100%;}
+.userinfo > span{font-size: 1.2vw;}
+.hedcenter > ul > li > a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: #787878;
+  transition: all 500ms ease-in-out;
 }
 
-.ftxt > h3 {transition: all 0.5s ease-in-out;}
+element.style {
+}
+.hedcenter > ul > li > a:hover {
+    text-shadow: -0.25px -0.25px 0 black, 0.25px 0.25px black;
+}
+.hedcenter > ul > li > a:hover::after{
+ width: 100%; left: 0;
+}
+
+
+
+
 
 @media only screen and (max-width:64em){
   .ftxt > h3 {font-size: 3vw;}
@@ -208,17 +242,20 @@ img{height: auto; width: 100%;}
   .rnginp {margin-right: 0%;}
   .fsubmit {font-size: 1.79vw;}
   .rnginp {width: 33%;}
-  .form {width: 70%;}
+  .form {width: 90%;}
   .inp > span {font-size: 1vw; bottom: -22%;left: 1%;}
   .popupmain { width: 70%;}
   #invert { font-size: 2.8vw;}
+  .hedleft > a > h3 {font-size: 3.4vw;}
+  .hedcenter > ul > li > a {font-size: 2vw;}
+  .userinfo > span {font-size: 1.6vw;}
 
 
 }
 @media only screen and (max-width:39em){
   .inp {width: 100%;}
   .form {width: auto;margin: 0 30px;}
-  .ftxt > h3 {font-size: 1.4em;}
+   .ftxt > h3 {font-size: 1.4em;}
   .inp > label {font-size: 1em;}
   .inpfild { margin-top: 9%;}
   .inpfild .inp:nth-child(odd) {margin-right: unset;margin-bottom: 7.5%;  }
@@ -237,4 +274,21 @@ img{height: auto; width: 100%;}
   #invert{font-size: 1.1em;}
   .inp {margin-bottom: 7.5%;}
   .intxt > h3, .rtxt > h3 {width: 31%;}
+  .hedleft > a > h3 {font-size: 1.1em;}
+  .userinfo > span {
+    font-size: 0.7em;
 }
+.headermain { padding: 4.2% 0%;}
+.form {padding-top: 72px;}
+.hedcenter > ul{display: none;}
+.icons {padding: 5% 13%}
+.hedcenter {width: 60%;}
+.hedleft, .hedrit {width: 25%;}
+.collection { flex-direction: column;}
+.inpset, .range {width: 100%;}
+
+
+}
+
+
+

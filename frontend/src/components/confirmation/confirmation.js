@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Confirmation = ({type}) => {
     const [show , setShow] = useState(true);
+    const navigate = useNavigate();
     const hide = (e) =>{
-        console.log("hided")
-        setShow(false)
+        console.log("hided");
+        setShow(false);
+        navigate('/login');
     }
   return (
     <div class= {show ? 'popup show': 'popup'} >
