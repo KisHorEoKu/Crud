@@ -1,0 +1,41 @@
+.formains,.forms,.formains11 > form{display: flex;}
+.forms{height: 100vh;width: 100vw; justify-content: center; align-items: center;     background-image: linear-gradient(to right bottom, #75abdd, #7ba7e9, #8ba1f2, #a398f6, #c08cf3);}
+.formains {margin: 0 auto;width: 50%;   }
+.formains11 > form{flex-direction: column;}
+.formains1,.formains2{width: 50%;}
+.formains2{background-color: #20344D; color: #fff;}
+.formain1hed > h4{font-size: 2.4vw; text-align: center;}
+h4{margin: 0;}
+.form11body{margin-top: 9%;}
+.inp1 {width: 80%;margin: 0 auto 4% auto;}
+.inp1 > input {width: 88%;padding: 3% 1% 3% 12%;
+}.forinp,.lsubmit{    padding: 2% 1%; width: 80%;margin: 0 auto;text-align: center;}
+.lsubmit > button{padding: 12px 46px;border: none;border-radius: 18px; color: #fff; cursor: pointer; background-color: #20344D;}
+.lsubmit{    padding-top: 3%;    padding-bottom: 20%;}
+.formain211{padding: 8%;}
+.formain211 > h3{font-size: 2vw; text-align: center; text-transform: capitalize;color: #fff;}
+.formain1hed{padding: 9% 0%;}  
+.formain211 > p{margin-top: 4%;} 
+.formain21{margin-top: 18%;}
+.formains1{background-color: #fff;}
+.formain211 > p{text-align: center;font-size: 1.5vw;}
+.inp1 > .eye{position: absolute;}
+.forinp > a{font-size: 1vw;color: #000;text-decoration: none;text-transform: capitalize;}
+.inp1 > .eye {position: absolute;right: 0;top: 50%;transform: translateY(-50%);}
+.form11body > span{color: red;}
+.inp1{position: relative;}
+.inp1 > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 19px;
+    height: 100%;
+    color: #000;
+    display: flex
+;
+    z-index: 9;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4;
+    left: 2%;
+}

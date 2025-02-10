@@ -2,12 +2,16 @@ import React, { useEffect } from 'react';
 import './dashboard.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Popup } from '../confirmation/popup';
+import { Common} from '../common/common';
 
 export const  Dashboard = () => {
 
-    const [tabledata ,setTabledata] = useState([
+    const [tabledata ,setTabledata] = useState([]);
+    const [show , setShow] = useState(false);
+    const [ids , setIds] = useState(false);
 
-    ]);
+    const [deletes , setDeletes] = useState(false);
     const navigate = useNavigate();
     const [currentDate, setCurrentDate] = useState(new Date());
     const options = { month: "long", day: "numeric", year: "numeric" };
@@ -25,18 +29,53 @@ export const  Dashboard = () => {
         }
         datas();
     },[]);
-
-    const userinfo = (e) =>{
-        const id = e.target.getAttribute('data-id');
-        navigate(`/form/edit/${id}`);
+    const confirm = (e) =>{
+        if(e == 'yes'){
+            setDeletes(true) ; setShow(false); 
+            deleteuser();
+        }
+        else{
+            setDeletes(false) ; setShow(false);
+        }
     }
-    const userdelete = (e) =>{
-        const id = e.target.getAttribute('data-id');
-        navigate(`/form/delete/${id}`);
-    }
+    const userinfo = (e) => {
+        const id = parseInt(e.target.getAttribute('data-id'));
+      
+        fetch(`http://localhost:5000/form/getuser/${id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then((response) => response.json())  
+        .then((data) => {
+          console.log(data);  
+        })
+        .catch((error) => {
+          console.error('Error fetching user info:', error);
+        });
+      };
+      
+    const userdelete = async(e) =>{
 
+        setShow(true);
+        const id = parseInt(e.target.getAttribute('data-id'));
+        setIds(id);
+    }
+    const deleteuser =async() =>{
+        const res = await fetch(`http://localhost:5000/form/delete`,{
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({"id":ids})
+            
+        })
+        .then((res)=>{
+           window.location.reload();
+        })
+    }
     const Backtoadd = ()=>{
-           
             navigate('/');
     }
 
@@ -46,25 +85,7 @@ export const  Dashboard = () => {
           <div class="table">
             <div class="tablemain">
                 
-                <div class="tablemain1">
-                    <div class="tm1c1">
-                        <ul class="tm1c1ul">
-                            <li><a href="#"><i class="fa-solid fa-bars"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="tm1c2">
-                        <ul class="tm1c2ul">
-                            <li><a href="#" onClick={Backtoadd}><i class="fa-solid fa-house"></i></a></li>
-                            <li><a href="#"><i class="fa-solid fa-file-excel"></i></a></li>
-                            {/* <li><a href="#"><i class="fa-solid fa-comment"></i></a></li> */}
-                            {/* <li><a href="#"><i class="fa-solid fa-gear"></i></a></li> */}
-                        </ul>
-                    </div>
-                    <div class="tm1c3">
-                        
-                    </div>
-
-                </div>
+                
                 <div class="tablemain2">
                     <div class="tblemain">
                             <div class="tabledate">
@@ -89,7 +110,7 @@ export const  Dashboard = () => {
                                     <div>Full name</div>
                                     <div>User name</div>
                                     <div>Phone</div>
-                                    <div class="wid1">Email</div>
+                                    <div class="wid1 uppc">Email</div>
                                     <div>Grade</div>
                                     <div>Sports</div>
                                     <div>Gender</div>
@@ -124,10 +145,9 @@ export const  Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div class="tablemain3">
-
-                </div>
+                
             </div>
+            {show ?  <Popup confirm={confirm}/> : ''}
         </div>
   )
 }

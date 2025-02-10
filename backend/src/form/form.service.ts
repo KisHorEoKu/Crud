@@ -13,4 +13,23 @@ export class FormService {
         return await  this.formRepository.save(formObj);
 
     }
+    async findAll():Promise<form[]>{
+        return await this.formRepository.find();
+    }
+
+    async delete(id:number):Promise<void>{
+        console.log(id);
+        await this.formRepository.delete(id);
+    }
+    async findUser(id:number){
+        return await this.formRepository.findOne({where:{id}});
+    }
+    async auth(email:string,password:string):Promise<{success:boolean}>{
+        const user = await this.formRepository.findOne({where:{email,password}});
+        if(!user){
+            return {success:false};
+        }
+        return {success:true};
+    }
+
 }

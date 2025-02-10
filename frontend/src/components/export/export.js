@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 
 const Export = () => {
   const [tableData, setTableData] = useState([
 
    ]);
+
+   useEffect(()=>{
+    const datas = async ()=>{
+        const res = await fetch('http://localhost:5000/form/Getusers',{
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json"
+            },
+        });
+        const data = await res.json();
+        setTableData(data);
+    }
+    datas();
+   } ,[])
 
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(tableData); 
@@ -25,6 +39,7 @@ const Export = () => {
             <th>User Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>gender</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +49,7 @@ const Export = () => {
               <td>{data.user_name}</td>
               <td>{data.email}</td>
               <td>{data.phone}</td>
+              <td>{data.gender}</td>
             </tr>
           ))}
         </tbody>
