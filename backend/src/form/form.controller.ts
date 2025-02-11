@@ -14,11 +14,8 @@ export class FormController {
     @Post()
     async create(@Body() formDTO: CreateFormDTO): Promise<form> {
       const hashedPassword = await this.common.hashPassword(formDTO.password);
-      
       formDTO.password = hashedPassword;
-      
-      console.log(hashedPassword);
-    
+    //   console.log(hashedPassword);
       return await this.formService.create(formDTO);
     }
     
@@ -41,6 +38,7 @@ export class FormController {
 
     @Post('auth')
     async auth(@Body() body: { email: string, password: string }): Promise<{ success: boolean }> {
+        const verified = this.common.hashPassword(body.password);
         return await this.formService.auth(body.email, body.password);
     }
 

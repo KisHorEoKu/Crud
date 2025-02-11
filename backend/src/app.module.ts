@@ -11,6 +11,7 @@ import { user } from './entity/user';
 import { FormController } from './form/form.controller';
 import { FormService } from './form/form.service';
 import { form } from './entity/form';
+import { SessionController } from './session/session.controller';
 
 @Module({
   imports: [
@@ -25,8 +26,9 @@ import { form } from './entity/form';
       synchronize: true, 
     }),
     TypeOrmModule.forFeature([Student,user,form]),
+    
   ],
-  controllers: [StudentController, UserController, FormController],
+  controllers: [StudentController, UserController, FormController, SessionController],
   providers: [StudentService, UserService, FormService],
 })
 export class AppModule {
