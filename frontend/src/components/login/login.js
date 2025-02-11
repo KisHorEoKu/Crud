@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import './login.css'; // Assuming you already have a CSS file
+import './login.css'; 
 import { Common } from '../common/common';
+import { useNavigate } from 'react-router-dom';
+import './login.css'; // Assuming you already have a CSS file
 import { Navigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -10,6 +12,8 @@ export const Login = () => {
   });
 
   const [allow, setAllow] = useState(false);
+  const  navigate = useNavigate()
+
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -28,17 +32,14 @@ export const Login = () => {
 
       if(data.success === true){
         setAllow(true);
-        Navigate('/dashboard');
-
-        const session = (e)=>{
-            
-        }
+        navigate('/dashboard')
 
       } else {  
-
+        console.log('Invalid credentials');
       }
 
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error during login:', error);
     }
   };

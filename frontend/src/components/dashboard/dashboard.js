@@ -78,19 +78,14 @@ export const  Dashboard = () => {
     const Backtoadd = ()=>{
             navigate('/');
     }
-
-   
-
   return (
           <div class="table">
-            <div class="tablemain">
-                
-                
+            <div class="tablemain">      
                 <div class="tablemain2">
                     <div class="tblemain">
-                            <div class="tabledate">
+                            {/* <div class="tabledate">
                                     <h5>{currentDate.toLocaleDateString(undefined, options)}</h5>
-                            </div>
+                            </div> */}
                         <div class="tb2hed">
                             <div class="tb2hed1">
                                 <h4>customers</h4>

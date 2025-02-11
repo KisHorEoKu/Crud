@@ -1,6 +1,13 @@
 import React from 'react'
 
 export const common = () => {
+
+    async function hashPassword(password) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+    
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    } 
     async function hashPassword(password) {
         // Convert the password string into an ArrayBuffer
         const encoder = new TextEncoder();
@@ -16,6 +23,7 @@ export const common = () => {
         return hashHex;
     }
     
+
     // // Example usage:
     // const password = "mySecurePassword";
     // hashPassword(password).then(hash => {
