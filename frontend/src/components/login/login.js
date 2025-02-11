@@ -28,7 +28,6 @@ export const Login = () => {
       });
 
       const data = await response.json();
-      console.log(data.success); 
 
       if(data.success === true){
         setAllow(true);

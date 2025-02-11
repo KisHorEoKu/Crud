@@ -12,6 +12,10 @@ import { FormController } from './form/form.controller';
 import { FormService } from './form/form.service';
 import { form } from './entity/form';
 import { SessionController } from './session/session.controller';
+import { ProfileController } from './profile/profile.controller';
+import { FormModule } from './form/form.module';
+import { AuthController } from './auth/auth.controller';
+import { SessionMiddleware } from './session/session.middleware';
 
 @Module({
   imports: [
@@ -26,13 +30,14 @@ import { SessionController } from './session/session.controller';
       synchronize: true, 
     }),
     TypeOrmModule.forFeature([Student,user,form]),
+    FormModule,
     
   ],
-  controllers: [StudentController, UserController, FormController, SessionController],
+  controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController],
   providers: [StudentService, UserService, FormService],
 })
 export class AppModule {
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer.apply(ValidationPipe).forRoutes(StudentController);
-  // }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SessionMiddleware).forRoutes('/login');
+  }
 }
