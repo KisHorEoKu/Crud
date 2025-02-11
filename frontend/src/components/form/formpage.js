@@ -19,13 +19,28 @@ import { Confirmation } from '../confirmation/confirmation';
   
 
 
+    // const handleHash = async (data) => {
+
+    //   const encoder = new TextEncoder();  
+    //   const dataBuffer = encoder.encode(data); 
+    //   const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    
+    //   const hashArray = Array.from(new Uint8Array(hashBuffer));
+    //   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    //   return hashHex;
+    // };
+  
+     
+
     const handleSubmit = async(e)=>{
         e.preventDefault();
         const errorShow = validateForm(formData);
         setErrors(errorShow);
 
+     
         if(Object.keys(errorShow).length === 0){
-            
+
+        
             const response = await fetch('http://localhost:5000/form',{
                 method :"POST",
                 headers:{
@@ -47,7 +62,6 @@ import { Confirmation } from '../confirmation/confirmation';
                 })
                
                 showed();
-                
             }
             else{
             }
@@ -63,8 +77,6 @@ import { Confirmation } from '../confirmation/confirmation';
     const showed = (e)=>{console.log("called"); setMessage(true)}
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-       
-    
         if (type === 'checkbox' && name ==='sports') {
           setFormData(prevState => {
             let updatedSports = [...prevState.sports];
@@ -85,14 +97,10 @@ import { Confirmation } from '../confirmation/confirmation';
         }
       };
     const validateForm = (data) =>{
-    
         const errors = {};
-
         if(!data.full_name.trim()){
           errors.full_name = "Enter the name";
       }
-
-
         if(!data.user_name.trim()){
             errors.user_name = "Enter the username";
         }
@@ -123,20 +131,15 @@ import { Confirmation } from '../confirmation/confirmation';
         }
         if(data.gender === '')errors.gender = "Please select gender"
         if(data.sports === '')errors.sports = "Please select gender"
-
-
         if(!data.password.trim()) errors.password = "Enter the password";
         if(!data.confirm_password.trim()) errors.confirm_password ="Enter the confirm password"
         if(data.password.trim() !== data.confirm_password.trim()) {errors.confirm_password ="Confirm password does not match"}
         if(data.grade ==='') errors.grade ="Please select the grade";
-        
-
         return errors;
     }
 
     const validateField = (e) => {
         const { name, value } = e.target;
-      
         switch (name) {
 
           case 'full_name':

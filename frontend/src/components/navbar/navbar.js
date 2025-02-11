@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 export const Navbar = () => {
+
+    const url = useLocation();
+    const [location , setLocation] = useState();
+    
   return (
     <nav class="navbar">
-           <header>
-                <div class="headermain">
+           <header  class={ url.pathname === '/dashboard' ? 'darks' : ''}>
+                <div class={ url.pathname === '/dashboard' ? 'headermain dark' : 'headermain'}>
                     <div class="hedleft">
                     <a href=""> <h3>csentral</h3></a>
                        
