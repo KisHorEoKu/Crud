@@ -1,6 +1,6 @@
-import * as express from 'express';
+import * as session from 'express-session';
 
-declare module 'express' {
+declare module 'express-session' {
     interface SessionData {
         user: String;
     }

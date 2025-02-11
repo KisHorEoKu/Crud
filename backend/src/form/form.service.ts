@@ -3,10 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { form } from 'src/entity/form';
 import { CreateFormDTO } from 'src/dto/form';
 import { Repository } from 'typeorm';
+import { commonController } from 'src/controllers/commonController';
 
 @Injectable()
 export class FormService {
     constructor(@InjectRepository(form)  private formRepository:Repository<form> ){}
+    common = new commonController();
 
     async create(formDTO:CreateFormDTO):Promise<form>{
         const formObj = this.formRepository.create(formDTO);
@@ -25,7 +27,11 @@ export class FormService {
         return await this.formRepository.findOne({where:{id}});
     }
     async auth(email:string,password:string):Promise<{success:boolean}>{
-        const user = await this.formRepository.findOne({where:{email,password}});
+
+        const hashedPassword = await this.common.hashPassword(password);
+
+        const user = await this.formRepository.findOne({where:{email,password:hashedPassword}});
+        
         if(!user){
             return {success:false};
         }

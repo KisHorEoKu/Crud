@@ -6,7 +6,8 @@ export class SessionController {
 
   @Get('set')
   setSession(@Req() request: Request): string {
-    request.session.user = 'John Doe';  
+    console.log(request)
+    // request.session.user = 'John Doe';  
     return 'Session data set';
   }
 
