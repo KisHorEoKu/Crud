@@ -4,14 +4,18 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class SessionMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    if (!req.session.user) {
-      const {id , email} = req.body;
-      req.session.user = {
-        id:id +'',
-        email :email  + ''
-      };
-      alert("session created")
-    }
-    next();
+    const cookies = req.cookies;
+
+    
+    // console.log('Cookies:', cookies);
+
+    // const token = req.cookies['token']; 
+    // console.log('Token:', token);
+
+    // if (!token) {
+    //   return res.status(401).json({ message: 'No token found' });
+    // }
+
+    next(); 
   }
 }

@@ -193,32 +193,37 @@ img{height: auto; width: 100%;}
 .headermain.dark > .hedcenter  > ul > li > a{color: #fff;} 
 .headermain.dark > .hedcenter  > ul > li > a::after{background-color: #fff;} 
 .headermain.dark > .hedrit > .icons{color: #fff;}
-.headermain.dark > .hedrit > a > .ritmain >  .icons{color: #000; background-color: #fff;}
-.headermain.dark > .hedrit > a > .ritmain > .userinfo > span{color: #fff;}
+.headermain.dark > .hedrit > .ritmain > a >  .icons{color: #000; background-color: #fff;}
+.headermain.dark > .hedrit >  .ritmain > a >  .userinfo > span{color: #fff;}
+
+.userinfo > button{
+  padding: 7px 15px;    font-size: 1.1vw;
+}
 
 
-
-
-
-.navbar > header{ position: fixed; width: 100%; background-color: rgba(255, 255, 255, .6); z-index: 99;}
-.hedleft,.hedrit{width: 20%;}
+.navbar > header{ position: fixed; width: 100%; background-color: rgba(255, 255, 255, .9); z-index: 99;}
+.hedleft,.hedrit{width: 36%;}
 .hedcenter{width: 80%;display: flex;align-items: center;}
 .hedcenter > ul > li:not(:last-child){margin-right: 2%;}
 .hedcenter > ul{display: flex;width: 100%;    justify-content: center;}
 .hedcenter > ul > li > a{    font-size: 1.4vw; position: relative; text-align: center  ;    padding: 15% 1%;display: block;  color: #000; text-transform: capitalize;  text-decoration: none; margin-right: 2%;}
 .hedcenter > ul > li{ margin-right: 2%; width: 10%;}
-.ritmain{display: flex;}
+.ritmain{display: flex;      justify-content: space-evenly;  width: 100%;}
 .icons {
-  padding: 5% 7%;
+  padding: 5% 7%;    width: 13px;
   background-color: #f3f0f0;
   margin-right: 7%;
-  border-radius: 50%;
+  border-radius: 50%;    display: flex
+  ;
+      justify-content: center;
+      align-items: center;
 }
 .userinfo{display: flex; align-items: center;}
 .hedleft > a > h3{font-size: 2.4vw;}
 .hedrit{ display: flex;align-items: center;}
 .hedrit > a{text-decoration: none; display: block; width: 100%;}
-.userinfo > span{font-size: 1.2vw;}
+.userinfo > span{font-size: 1.2vw;    color: #000;
+}
 .hedcenter > ul > li > a::after {
   content: '';
   position: absolute;
@@ -230,8 +235,7 @@ img{height: auto; width: 100%;}
   transition: all 500ms ease-in-out;
 }
 
-element.style {
-}
+.ritmain > a{display: flex;width: 50%;}
 .hedcenter > ul > li > a:hover {
     text-shadow: -0.25px -0.25px 0 black, 0.25px 0.25px black;
 }

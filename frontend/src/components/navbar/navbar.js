@@ -1,17 +1,47 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export const Navbar = () => {
 
     const url = useLocation();
-    const [location , setLocation] = useState();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const user_name1 = location.state?.userData.name;
+    const Backtoadd = ()=>{
+        navigate('/login');
+    }  
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
+     
+    const destroy = async(e) =>{
+        
+        const cookies = getCookie('token')
+        Cookies.remove('token');
+        navigate('/login')
+        const res = await fetch('http://localhost:5000/session/destroy',{
+            method: "DELETE",
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"cookie" : cookies})
+        })
+    }
     
+
+
+
+
   return (
     <nav class="navbar">
            <header  class={ url.pathname === '/dashboard' ? 'darks' : ''}>
                 <div class={ url.pathname === '/dashboard' ? 'headermain dark' : 'headermain'}>
                     <div class="hedleft">
-                    <a href=""> <h3>csentral</h3></a>
+                    <a href=""  ><h3>csentral</h3></a>
                        
                     </div>
                     <div class="hedcenter">
@@ -23,16 +53,21 @@ export const Navbar = () => {
                         </ul>
                     </div>
                     <div class=" hedrit">
-                        <a href="#">
+                        
                             <div class="ritmain">
+                            <a href="#" onClick={Backtoadd}>
                                     <div class="icons">
                                     <i class="fa-regular fa-user"></i>
                                     </div>
                                     <div class="userinfo">
-                                        <span>kishore</span>
+                                        <span id="loginname">{user_name1 ? user_name1 : "Log In"}</span>
+                                    </div>
+                                    </a>
+                                    <div class="userinfo">
+                                        <button onClick={destroy}>log out</button>
                                     </div>
                             </div>
-                        </a>
+                        
                     </div>  
                 </div>      
             </header>
