@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './dashboard.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation } from 'react-router-dom';
 import { Popup } from '../confirmation/popup';
 import { Common} from '../common/common';
 
@@ -10,12 +10,9 @@ export const  Dashboard = () => {
     const [tabledata ,setTabledata] = useState([]);
     const [show , setShow] = useState(false);
     const [ids , setIds] = useState(false);
-
     const [deletes , setDeletes] = useState(false);
     const navigate = useNavigate();
-    const [currentDate, setCurrentDate] = useState(new Date());
-    const options = { month: "long", day: "numeric", year: "numeric" };
-
+  
     useEffect(() => {
         const datas = async ()=>{
             const res = await fetch('http://localhost:5000/form/Getusers',{
@@ -23,7 +20,7 @@ export const  Dashboard = () => {
                 headers:{
                     "Content-Type":"application/json"
                 },
-            });
+            })
             const data = await res.json();
             setTabledata(data);
         }
@@ -78,6 +75,8 @@ export const  Dashboard = () => {
     const Backtoadd = ()=>{
             navigate('/');
     }
+   
+
   return (
           <div class="table">
             <div class="tablemain">      

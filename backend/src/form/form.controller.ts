@@ -4,10 +4,14 @@ import { CreateFormDTO } from 'src/dto/form';
 import { form } from 'src/entity/form';
 import { get } from 'http';
 import { commonController } from 'src/controllers/commonController';
+import { Response } from 'express';
+
+
+
 
 @Controller('form')
 export class FormController {
-    constructor(private readonly formService:FormService){}
+    constructor(private readonly formService:FormService,){}
 
     common = new commonController();
 
@@ -37,9 +41,9 @@ export class FormController {
     }
 
     @Post('auth')
-    async auth(@Body() body: { email: string, password: string },@Req() res:Response ): Promise<{ success: boolean }> {
+    async auth(@Body() body: { email: string, password: string },@Req() res:Response ): Promise<any> {
         const verified = this.common.hashPassword(body.password);
-        return await this.formService.auth(body.email, body.password,res);
+        return await  this.formService.auth(body.email, body.password,res);
     }
 
     

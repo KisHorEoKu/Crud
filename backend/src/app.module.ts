@@ -13,9 +13,11 @@ import { FormService } from './form/form.service';
 import { form } from './entity/form';
 import { SessionController } from './session/session.controller';
 import { ProfileController } from './profile/profile.controller';
-import { FormModule } from './form/form.module';
+// import { FormModule } from './form/form.module';
 import { AuthController } from './auth/auth.controller';
 import { SessionMiddleware } from './session/session.middleware';
+import { Session } from './entity/session';
+import { SessionService } from './session/session.service';
 
 @Module({
   imports: [
@@ -26,18 +28,18 @@ import { SessionMiddleware } from './session/session.middleware';
       username: 'root',
       password: 'tiger',
       database: 'crud', 
-      entities: [Student,Sports,user,form],
+      entities: [Student,Sports,user,form,Session],
       synchronize: true, 
     }),
-    TypeOrmModule.forFeature([Student,user,form]),
-    FormModule,
+    TypeOrmModule.forFeature([Student,user,form,Session]),
+    // FormModule,
     
   ],
   controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController],
-  providers: [StudentService, UserService, FormService],
+  providers: [StudentService, UserService, FormService, SessionService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(SessionMiddleware).forRoutes('/login');
+    consumer.apply(SessionMiddleware).forRoutes('/','/login');
   }
 }

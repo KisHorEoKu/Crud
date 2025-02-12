@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import './login.css'; 
 import { Common } from '../common/common';
 import { useNavigate } from 'react-router-dom';
-import './login.css'; // Assuming you already have a CSS file
+import './login.css'; 
 import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export const Login = () => {
   const [userData, setUserData] = useState({
     email: '',
     password: ''
   });
+  const[errors, setError] = useState(false);
 
   const [allow, setAllow] = useState(false);
   const  navigate = useNavigate()
@@ -27,19 +29,23 @@ export const Login = () => {
         body: JSON.stringify(userData),
       });
 
-      const data = await response.json();
+      const data = await response.json() || null;
+      
 
-      if(data.success === true){
+      if(data !== null){
         setAllow(true);
         navigate('/dashboard')
-
-      } else {  
-        console.log('Invalid credentials');
+        Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' })
+        return
+      } 
+      else{
+        setError(true);
+        console.log(errors) 
       }
+   
 
     } 
     catch (error) {
-      console.error('Error during login:', error);
     }
   };
 
