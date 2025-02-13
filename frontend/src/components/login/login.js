@@ -30,8 +30,6 @@ export const Login = () => {
       });
 
       const data = await response.json() || null;
-      
-
       if(data !== null){
         setAllow(true);
         navigate('/dashboard')

@@ -11,7 +11,16 @@ export const  Dashboard = () => {
     const [show , setShow] = useState(false);
     const [ids , setIds] = useState(false);
     const [deletes , setDeletes] = useState(false);
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const user_name1 = location.state?.userData;
+    console.log(location.state)
+    
+    
+    const reload = (e)=>{
+        window.location.reload();
+    }
   
     useEffect(() => {
         const datas = async ()=>{
@@ -21,6 +30,7 @@ export const  Dashboard = () => {
                     "Content-Type":"application/json"
                 },
             })
+            
             const data = await res.json();
             setTabledata(data);
         }

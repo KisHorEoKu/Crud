@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router , Routes, Route, useNavigate} from 'react-router-dom';
+import { BrowserRouter as Router , Routes, Route, useNavigate , useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 
 
@@ -7,6 +7,7 @@ export const Main = () => {
 
     const navigate = useNavigate(); 
     const [allow ,setAllow] =useState(true);
+    const location = useLocation();
 
   // Check cookie and validate session
   const cookieCheck = () => {
@@ -24,17 +25,22 @@ export const Main = () => {
       .then((response) => response.json())
       .then((datas) => {
         if (datas && allow ) {
-          console.log(datas)
+          const availableRoutes = ['/login', '/'];
+          const path = location.pathname;
+          if(! availableRoutes.includes(path)) navigate(path, { state:{ userData: datas } }) 
+          setAllow(false)
 
         }else{
-          navigate('/dashboard', { state: { userData: datas } });
-
+          navigate('/dashboard', { state:{ userData: datas } });
         }
       })
       .catch((error) => console.log("Error during session validation:", error));
     }
-    else{
-      navigate('/login')
+    else{   
+      const availableRoutes = ['/login', '/'];
+      const path = location.pathname;
+      if( availableRoutes.includes(path)) navigate(path) 
+      else navigate('/login')  
     }
   };
  
