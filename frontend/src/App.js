@@ -9,7 +9,6 @@ import { Main } from './main.js';
 import { Trunkboard } from './components/trunkboard/trunkboard.js';
 
 function App() {
-  
   return (
     <div className="App">
       <Router>

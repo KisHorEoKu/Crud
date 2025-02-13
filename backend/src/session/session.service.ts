@@ -1,7 +1,7 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Session } from '../entity/session';
-import { Repository } from 'typeorm';
+import { Repository  } from 'typeorm';
 
 @Injectable()
 export class SessionService {
@@ -14,5 +14,6 @@ export class SessionService {
     async delete(sessionId:string):Promise<any>{
        const user =  await this.sessionRepository.delete({sessionId : sessionId})
        return user;
-    }
+    }                         
+
 }
