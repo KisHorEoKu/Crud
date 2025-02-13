@@ -15,7 +15,7 @@ export const  Dashboard = () => {
     const navigate = useNavigate();
 
     const user_name1 = location.state?.userData;
-    console.log(location.state)
+    // console.log(location.state)
     
     
     const reload = (e)=>{

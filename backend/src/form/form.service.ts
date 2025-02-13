@@ -4,15 +4,18 @@ import { form } from 'src/entity/form';
 import { CreateFormDTO } from 'src/dto/form';
 import { Repository } from 'typeorm';
 import { commonController } from 'src/controllers/commonController';
-import { IUser } from './form.interface';
 import { v4 as uuidv4 } from 'uuid'; 
 import { Session } from '../entity/session';
 import { Response } from 'express';
+import { Otp } from '../entity/otp';
 
 @Injectable()
 export class FormService {
     constructor(@InjectRepository(form)  private formRepository:Repository<form>,
-                @InjectRepository(Session)  private SessionRepository:Repository<Session> ){}
+                @InjectRepository(Session)  private SessionRepository:Repository<Session>,
+                @InjectRepository(Otp)  private OtpRepository:Repository<Otp>
+
+             ){}
                 common = new commonController();
 
     async create(formDTO:CreateFormDTO):Promise<form>{
@@ -31,16 +34,38 @@ export class FormService {
     async findUser(id:number){
         return await this.formRepository.findOne({where:{id}});
     }
+    async validateOtp(otp:number){
+        return await this.OtpRepository.findOne({where:{otp}});
+    }
+    async generateOtp(phnumber:number): Promise<Boolean> {
+        const phone = phnumber+""
+        const user = await this.formRepository.findOne({where:{phone}})
+        console.log(user)
+        if(user){
+            const otp = Math.floor(1000 + Math.random() * 9000);
+            const expiryTime = new Date();
+            expiryTime.setSeconds(expiryTime.getSeconds() + 30);
+            const otpRecord = await this.OtpRepository.save({
+                phnumber:phone,
+                otp,
+                expiryTime,
+                isVerified: false,
+            })
+            console.log(otpRecord)
+            return true;
+        }
+        
+       return false;
+    }
+    
    
 
     async auth(email: string, password: string, @Req() res: Response): Promise<any> {
         const hashedPassword = await this.common.hashPassword(password);
-        const user = await this.formRepository.findOne({ where: { email, password: hashedPassword } });
-        
+        const user = await this.formRepository.findOne({ where: { email, password: hashedPassword } });  
         if (!user) {
             return null;
         }
-
         const sessionID = uuidv4();
         const session = new Session();
         session.sessionId = sessionID;

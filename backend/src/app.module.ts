@@ -18,6 +18,7 @@ import { AuthController } from './auth/auth.controller';
 import { SessionMiddleware } from './session/session.middleware';
 import { Session } from './entity/session';
 import { SessionService } from './session/session.service';
+import { Otp } from './entity/otp';
 
 @Module({
   imports: [
@@ -28,11 +29,11 @@ import { SessionService } from './session/session.service';
       username: 'root',
       password: 'tiger',
       database: 'crud', 
-      entities: [Student,Sports,user,form,Session],
+      entities: [Student,Sports,user,form,Session,Otp],
       synchronize: true, 
     }),
-    TypeOrmModule.forFeature([Student,user,form,Session]),
-    // FormModule,
+    TypeOrmModule.forFeature([Student,user,form,Session,Otp]),
+ 
     
   ],
   controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController],
