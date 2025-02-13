@@ -9,7 +9,6 @@ export const Navbar = () => {
     const location = useLocation();
     const [name , setName] = useState();
     const user_name1 = location.state?.userData.name;
-    console.log(location.state)
     useEffect(()=>{
         setName(user_name1)
     },[location.pathname])

@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css'; 
 import { Common } from '../common/common';
 import { useNavigate } from 'react-router-dom';
 import './login.css'; 
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { Forgot } from '../forgot/forgot';
 
 export const Login = () => {
   const [userData, setUserData] = useState({
     email: '',
     password: ''
   });
-  const[errors, setError] = useState(false);
-
+  const[errors, setError] = useState({
+    testcase :''
+  });
+  const[forshow , setFor] = useState(false);
   const [allow, setAllow] = useState(false);
   const  navigate = useNavigate()
-
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:5000/form/auth', {
         method: 'POST',
@@ -28,24 +28,32 @@ export const Login = () => {
         },
         body: JSON.stringify(userData),
       });
+      const data = await response.json().catch((err) => {
+        console.error("Failed to parse JSON:", err);
+        setError({ testcase: 'Invalid response format' });
+      });     
 
-      const data = await response.json() || null;
-      if(data !== null){
+      if(data && data.sessionIds){
         setAllow(true);
-        navigate('/dashboard')
-        Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' })
-        return
+        console.log("went in if part") ;
+        navigate('/dashboard');
+        Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
+        return;
       } 
       else{
-        setError(true);
-        console.log(errors) 
+        const allowse = userData.email.includes('@');
+        if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and pasword' }); 
+        else if(userData.email === '') setError({ testcase: 'Enter your email' });      
+        else if(allowse) setError({ testcase: 'Enter your valid email' });      
+        else if(userData.password === '') setError({ testcase: 'Enter your password' }); 
+        else setError({ testcase: 'Entered credentials are wrong' });  
       }
-   
-
     } 
     catch (error) {
+      console.log("error is throwing check for updates")
     }
   };
+
 
   const revealPassword = (e) => {
     const pass = document.getElementById('passcode');
@@ -67,6 +75,14 @@ export const Login = () => {
     });
   };
 
+  const forgot = async (e)=> {
+    e.preventDefault();
+    console.log(forshow)
+    setFor(true);  
+    
+    
+
+  }
   return (
     <div className="forms">
       <div className="formains">
@@ -77,7 +93,7 @@ export const Login = () => {
                 <h4>Sign in</h4>
               </div>
               <div className="form11body">
-                <span></span>
+                <span id="textred">{errors.testcase}</span>
                 <div className="inpmain">
                   <div className="inp1">
                     <label htmlFor=""><i className="fa-regular fa-envelope"></i></label>
@@ -105,10 +121,10 @@ export const Login = () => {
                   </div>
                 </div>
                 <div className="forinp">
-                  <a href="#">Forgot password?</a>
+                  <a href="#" onClick={forgot}>Forgot password?</a>
                 </div>
                 <div className="lsubmit">
-                  <button type="submit">Sign in</button>
+                  <button type="submit"class="btnfire">Sign in</button>
                 </div>
               </div>
             </form>
@@ -123,6 +139,7 @@ export const Login = () => {
           </div>
         </div>
       </div>
+      {forshow ? <Forgot setfors={setFor} type='1' /> : ' '}
     </div>
   );
 };

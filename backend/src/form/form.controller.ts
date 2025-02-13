@@ -5,6 +5,7 @@ import { form } from 'src/entity/form';
 import { get } from 'http';
 import { commonController } from 'src/controllers/commonController';
 import { Response } from 'express';
+import { Otp } from 'src/entity/otp';
 
 
 
@@ -22,8 +23,6 @@ export class FormController {
     //   console.log(hashedPassword);
       return await this.formService.create(formDTO);
     }
-    
-
     @Get('Getusers')
     async findAll():Promise<form[]>{
         return await this.formService.findAll();
@@ -46,6 +45,37 @@ export class FormController {
         return await  this.formService.auth(body.email, body.password,res);
     }
 
-    
+    @Post('otp')
+    async GenerateOtp (@Body() body: {phnumber:number}):Promise<Boolean>{
+        const { phnumber } = body;
+        return await this.formService.generateOtp(phnumber);
 
+    }
+    @Post('otp/validate')
+    async validateOtp(@Body() body:{otp : number}):Promise<any>{
+        const { otp } = body;
+        console.log(otp)
+        const otps =  await this.formService.validateOtp(otp);
+        console.log(otps)
+       
+        if(otps) {
+            const expiredate = new Date(otps?.expiryTime).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              });
+            const currentDateTime = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              });
+            console.log(expiredate)
+            console.log(currentDateTime)
+
+            if(expiredate > currentDateTime){return true;}
+            else return false;
+        }       
+           return false;
+       
+    }
 }

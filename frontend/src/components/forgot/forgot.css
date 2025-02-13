@@ -1,0 +1,147 @@
+body{margin: 0; border: 0;}
+.otp-Form {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px;
+    gap: 20px;
+    position: relative;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.082);
+    border-radius: 15px;
+  }
+  
+  .mainHeading {
+    font-size: 1.1em;
+    color: rgb(15, 15, 15);
+    font-weight: 700;
+  }
+  .flexed{display: flex;justify-content: center;}
+  .otpSubheading {
+    font-size: 1.1vw;
+    color: black;
+    line-height: 17px;
+    text-align: center;
+  }
+  
+  .inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .otp-input {
+    background-color: rgb(228, 228, 228);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    border-radius: 7px;
+    caret-color: rgb(127, 129, 255);
+    color: rgb(44, 44, 44);
+    outline: none;
+    font-weight: 600;
+  }
+  
+  .otp-input:focus,
+  .otp-input:valid {
+    background-color: rgba(127, 129, 255, 0.199);
+    transition-duration: .3s;
+  }
+  
+  .verifyButton {
+   padding: 12px 30px;
+    border: none;
+    background-color: rgb(127, 129, 255);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: .2s;
+  }
+  
+  .verifyButton:hover {
+    background-color: rgb(144, 145, 255);
+    transition-duration: .2s;
+  }
+  
+  .exitBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.171);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: none;
+    color: black;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+  .formains11 {
+    position: relative;
+    z-index: 1;
+}
+  .popupmain{z-index: 99;}
+  .resendNote {
+    font-size: 1.1vw;
+    color: black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .resendBtn {
+    background-color: transparent;
+    border: none;
+    color: rgb(127, 129, 255);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+  /* .form-ipnss{display: flex;} */
+  .form-ipnss {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.form-ipn{width: 60%;}
+.form-inpf{color: #ff0000; font-size: 1.3vw;}
+.form-ipn > input{padding: 3%; border: none;    letter-spacing: 0.4vw;
+    border-bottom: 1px solid #000;   width: 90%;}
+
+
+
+.verifyButton1,.btnfire {
+    padding: 9px 30px;
+     border: none;
+     background-color: rgb(127, 129, 255);
+     color: white;
+     font-weight: 600;
+     cursor: pointer;
+     border-radius: 10px;
+     transition-duration: .2s;
+   }
+   
+   .verifyButton1:hover,.btnfire:hover {
+     background-color: rgb(144, 145, 255);
+     transition-duration: .2s;
+   }
+   
+
+  @media only screen and (max-width:64em) {
+    .mainHeading {font-size: 2.6vw;}
+    .otpSubheading {font-size: 1.6vw;}
+    .resendNote {font-size: 1.6vw;}
+    
+    
+  }
