@@ -9,9 +9,10 @@ export const Navbar = () => {
     const location = useLocation();
     const [name , setName] = useState();
     const user_name1 = location.state?.userData.name;
+    const currentPath = location.pathname;
     useEffect(()=>{
         setName(user_name1)
-    },[location.pathname])
+    },[currentPath])
     
      
    
@@ -41,15 +42,18 @@ export const Navbar = () => {
 
   return (
     <nav class="navbar">
-           <header  class={ url.pathname === '/dashboard' ? 'darks' : ''}>
-                <div class={ url.pathname === '/dashboard' ? 'headermain dark' : 'headermain'}>
+                <header className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'darks' : ''}>
+                <div className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'headermain dark' : 'headermain'}>
                     <div class="hedleft">
                     <a href=""><h3>csentral</h3></a>
                     </div>
                     <div class="hedcenter">
                         <ul>
-                            <li><a href="">home</a></li>
-                            <li><a href="">updates</a></li>
+                        
+                                    <li><a href="http://localhost:3000/home">home</a></li>
+                                    <li><a href="http://localhost:3000/updates">updates</a></li>
+                               
+
                             {/* <li><a href=""></a></li>
                             <li><a href=""></a></li> */}
                         </ul>

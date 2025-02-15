@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nestjs/common": "^11.0.9",
     "cra-template": "1.2.0",
     "js-cookie": "^3.0.5",
     "react": "^19.0.0",

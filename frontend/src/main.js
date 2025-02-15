@@ -37,7 +37,7 @@ export const Main = () => {
       .catch((error) => console.log("Error during session validation:", error));
     }
     else{   
-      const availableRoutes = ['/login', '/'];
+      const availableRoutes = ['/login', '/','/form/reset'];
       const path = location.pathname;
       if( availableRoutes.includes(path)) navigate(path) 
       else navigate('/login')  

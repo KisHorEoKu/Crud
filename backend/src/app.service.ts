@@ -30,6 +30,8 @@ export class AppService {
     });
   }
 
+  
+
   async sendMailLink(email:string,link:string,name:string) {
     await this.mailerService.sendMail({
       to: `${email}`,  

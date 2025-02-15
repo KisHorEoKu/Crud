@@ -9,12 +9,14 @@ import { Session } from '../entity/session';
 import { Response } from 'express';
 import { Otp } from '../entity/otp';
 import { AppService } from 'src/app.service';
+import { Token } from 'src/entity/token';
 
 @Injectable()
 export class FormService {
     constructor(@InjectRepository(form)  private formRepository:Repository<form>,
                 @InjectRepository(Session)  private SessionRepository:Repository<Session>,
                 @InjectRepository(Otp)  private OtpRepository:Repository<Otp>,
+                @InjectRepository(Token)  private TokenRepository:Repository<Token>,
                 private readonly Appservice:AppService
 
              ){}
@@ -37,7 +39,7 @@ export class FormService {
         return await this.formRepository.findOne({where:{id}});
     }
     async validateOtp(otp:number){
-        return await this.OtpRepository.findOne({where: { otp }, order: {id: 'DESC', } });
+        return await this.OtpRepository.findOne({where: { otp } });
     }
     async generateOtp(phnumber:number): Promise<Boolean> {
         const phone = phnumber+""
@@ -59,14 +61,12 @@ export class FormService {
        return false;
     }
     
-   
-
     async auth(email: string, password: string, @Req() res: Response): Promise<any> {
         const hashedPassword = await this.common.hashPassword(password);
         const user = await this.formRepository.findOne({ where: { email, password: hashedPassword } });  
         if (!user) {
             return null;
-        }
+        }      
         const sessionID = uuidv4();
         const session = new Session();
         session.sessionId = sessionID;
@@ -78,10 +78,14 @@ export class FormService {
         const cookie = {"message" :"authethicated" , sessionIds: sessionID};
         return cookie;
     }
+    async validateToken(token:string):Promise<any>{
+        const tokenz = await this.TokenRepository.findOne({where:{token}})  ;
+        return tokenz;
+    }
+    async hashGenerate(password:string):Promise<string>{
+        const hashedPassword = await this.common.hashPassword(password);
+        return hashedPassword;
 
-   
-
-
-
+    }
 
 }
