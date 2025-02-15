@@ -6,11 +6,19 @@ export const Forgot = ({type, setfors}) => {
       const [error , setError] = useState({
         errors:''
       });
-      const getOtp =async (e)=>{
+      const [otps , setOpts] = useState({
+        first: '',
+        second:'',
+        third:'',
+        fourth:''
+      });
+      const getOtp = async (e)=>{
       const value = document.getElementById('phnum').value;
       const data = {
         phnumber: value
       }
+    
+    console.log(otps)
 
       try{
         const response = await fetch('http://localhost:5000/form/otp',{
@@ -36,14 +44,43 @@ export const Forgot = ({type, setfors}) => {
   
       }
     }
+
+    const verifyotp = async(e)=>{
+          e.preventDefault();
+        
+        const Validopt = Object.values(otps).join(''); 
+        console.log(Validopt)
+        const validopsend ={ valid:parseInt(Validopt)}
+
+        const response = await fetch('http://localhost:5000/form/otp/validate',{
+          method:"POST",
+          headers:{
+            'Content-Type' : 'application/json'
+          },
+          body:JSON.stringify(validopsend)
+        }).then((res)=> res.json())
+        .then((data)=>{
+          if(data === true){
+
+          }else{
+
+          }
+        })
+    }
+    const handleOtpChange = (e, index) => {
+      const newOtp = {...otps};
+      newOtp[index] = e.target.value; 
+      setOpts(newOtp);
+  };
+  
     
   return (
     <div class={show ? 'popup show ' : 'popup '}>
          <div class="popupmain flexed">  
-         <form class="otp-Form">
+         <form class="otp-Form" onSubmit={verifyotp} >
               <div class="form-ipnss">
                     <div class="form-ipn">
-                          <input required="required" placeholder='Enter your mobile number'  maxlength="10" type="number" class="" id="phnum"/>
+                          <input  placeholder='Enter your mobile number'  maxlength="10" type="number" class="" id="phnum"/>
                     </div>
                     <div class="form-btn">
                             <button class="verifyButton1" onClick={getOtp} type="submit">Get OTP</button>
@@ -56,16 +93,27 @@ export const Forgot = ({type, setfors}) => {
                 <span class="mainHeading">Enter OTP</span>
                 <p class="otpSubheading">We have sent a verification code to your mobile number</p>
                 <div class="inputContainer">
-                    <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1"/>
-                    <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2"/>
-                    <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3"/>
-                    <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4"/> 
+                    <input required="required"   maxlength={1} type="number" class="otp-input" id="otp-input1"  onInput={(e) => {
+                    if (e.target.value.length > 1) {e.target.value = e.target.value.slice(0, 1);}}} 
+                  onChange={(e) => handleOtpChange(e,'first' )} />
+                    <input required="required" maxlength="1" type="number" class="otp-input" id="otp-input2"
+                     onInput={(e) => {
+                      if (e.target.value.length > 1) {e.target.value = e.target.value.slice(0, 1);}}} 
+                     onChange={(e) => handleOtpChange(e, 'second')}/>
+                    <input required="required" maxlength="1" type="number" class="otp-input" id="otp-input3"
+                     onInput={(e) => {
+                      if (e.target.value.length > 1) {e.target.value = e.target.value.slice(0, 1);}}} 
+                     onChange={(e) => handleOtpChange(e, 'third')}/>
+                    <input required="required" maxlength="1" type="number" class="otp-input" id="otp-input4"
+                     onInput={(e) => {
+                      if (e.target.value.length > 1) {e.target.value = e.target.value.slice(0, 1);}}} 
+                     onChange={(e) => handleOtpChange(e, 'fourth')}/> 
                 </div>
-                    <button class="verifyButton" type="submit">Verify</button>
+                    <button class="verifyButton"  type="submit">Verify</button>
                     <button class="exitBtn" onClick={(e) => { e.preventDefault(); setShow(false);setfors(false) }}>×</button>
                     <p class="resendNote">Didn't receive the code? <button class="resendBtn">Resend Code</button></p>
 
-                </form>                                             
+          </form>                                             
          </div>           
     </div>
   )

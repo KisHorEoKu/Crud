@@ -116,7 +116,7 @@ body{margin: 0; border: 0;}
 }
 .form-ipn{width: 60%;}
 .form-inpf{color: #ff0000; font-size: 1.3vw;}
-.form-ipn > input{padding: 3%; border: none;    letter-spacing: 0.4vw;
+.form-ipn > input{padding: 3%; border: none;  
     border-bottom: 1px solid #000;   width: 90%;}
 
 
