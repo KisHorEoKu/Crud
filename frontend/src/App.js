@@ -7,6 +7,7 @@ import { Navbar } from './components/navbar/navbar';
 import { Login } from './components/login/login';
 import { Main } from './main.js';
 import { Trunkboard } from './components/trunkboard/trunkboard.js';
+import { Notfound } from './components/notfound/notfound.js';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/trunk" element={<Trunkboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </Router>
     </div>
