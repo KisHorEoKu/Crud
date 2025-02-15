@@ -28,8 +28,7 @@ export const Navbar = () => {
     const destroy = async(e) =>{     
         const cookies = getCookie('token')
         Cookies.remove('token');
-        navigate('/login');
-       
+        navigate('/login')
         const res = await fetch('http://localhost:5000/session/destroy',{
             method: "DELETE",
             headers:{
@@ -55,6 +54,7 @@ export const Navbar = () => {
                         </ul>
                     </div>
                     <div class=" hedrit">
+                        
                             <div class="ritmain">
                             <a href="#" onClick={Backtoadd}>
                                     <div class="icons">

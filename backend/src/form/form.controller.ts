@@ -6,23 +6,13 @@ import { get } from 'http';
 import { commonController } from 'src/controllers/commonController';
 import { Response } from 'express';
 import { Otp } from 'src/entity/otp';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Token } from 'src/entity/token';
-import { Session } from 'src/entity/session';
-import { v4 as uuidv4 } from 'uuid'; 
-import { AppService } from 'src/app.service';
-import { session } from 'src/entity/sessions';
+
+
+
 
 @Controller('form')
 export class FormController {
-    constructor(private readonly formService:FormService,
-        @InjectRepository(Otp)  private OtpRepository:Repository<Otp>,
-        @InjectRepository(Token)  private tokenRepository:Repository<Token>,
-        @InjectRepository(form)  private formRepository:Repository<form>,
-        // @InjectRepository(session)  private sessionRepository:Repository<session>,
-        private readonly appService:AppService,
-    ){}
+    constructor(private readonly formService:FormService,){}
 
     common = new commonController();
 
@@ -30,6 +20,7 @@ export class FormController {
     async create(@Body() formDTO: CreateFormDTO): Promise<form> {
       const hashedPassword = await this.common.hashPassword(formDTO.password);
       formDTO.password = hashedPassword;
+    //   console.log(hashedPassword);
       return await this.formService.create(formDTO);
     }
     @Get('Getusers')
@@ -65,7 +56,7 @@ export class FormController {
         const { otp } = body;
         console.log(otp)
         const otps =  await this.formService.validateOtp(otp);
-        console.log(otps);
+        console.log(otps)
        
         if(otps) {
             const expiredate = new Date(otps?.expiryTime).toLocaleTimeString('en-US', {
@@ -78,48 +69,13 @@ export class FormController {
                 minute: '2-digit',
                 second: '2-digit',
               });
-              console.log(expiredate)
-              console.log(currentDateTime)
-              console.log(expiredate >= currentDateTime)
+            console.log(expiredate)
+            console.log(currentDateTime)
 
-              
-            if(expiredate >= currentDateTime){
-                //can delete the session here 
-                const sessionUpdate = await this.OtpRepository.update({  }, { isVerified: true });
-                const phone = otps.phnumber +" ";
-                const user = await this.formRepository.findOne({where:{phone}})
-                const id = otps.id;
-                this.OtpRepository.delete(id);
-
-                if(user){
-                    const tokenID = uuidv4();
-                    const tokens = new Token();
-                    tokens.token = tokenID;
-                    tokens.user_id = user?.id;
-                    tokens.isVerified = false;
-                    tokens.expiryTime =new Date(new Date().getTime() + 1800000); 
-                    const tokenRepo = this.tokenRepository.create(tokens);
-                    const link =`http://localhost:5000/form/reset?q=${tokenID}`
-                    console.log(link);
-
-                    //here i m sending the mail in the email
-                    // this.appService.sendMailLink(user.email,"",user.full_name);
-                
-                    return true;
-
-                }
-                
-
-            }
-            else {
-                // const otpset = otp+""
-                // console.log(otp, otpset)
-            //    const Nooptverified = await this.OtpRepository.delete({otp :{otpset}})
-                return false;
-                
-            }
+            if(expiredate > currentDateTime){return true;}
+            else return false;
         }       
-        return false;
+           return false;
        
     }
 }

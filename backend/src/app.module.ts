@@ -19,10 +19,6 @@ import { SessionMiddleware } from './session/session.middleware';
 import { Session } from './entity/session';
 import { SessionService } from './session/session.service';
 import { Otp } from './entity/otp';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { MailController } from './mail/mail.controller';
-import { AppService } from './app.service';
-import { Token } from './entity/token';
 
 @Module({
   imports: [
@@ -33,31 +29,15 @@ import { Token } from './entity/token';
       username: 'root',
       password: 'tiger',
       database: 'crud', 
-      entities: [Student,Sports,user,form,Session,Otp,Token],
+      entities: [Student,Sports,user,form,Session,Otp],
       synchronize: true, 
     }),
-    TypeOrmModule.forFeature([Student,user,form,Session,Otp,Token]),
-    // MailModule setup
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtp.gmail.com',  
-        port: 587,                 // Replace with your SMTP port
-        secure: false,             // Use true for 465 port, false for other ports
-        auth: {
-          user: 'kishorednmgroup@gmail.com', 
-          pass: 'sgpu poph noxt tqwb',   
-        },
-      },
-      defaults: {
-        from: '"No Reply" <no-reply@example.com>',  
-      },
-    }),
-
+    TypeOrmModule.forFeature([Student,user,form,Session,Otp]),
  
     
   ],
-  controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController, MailController],
-  providers: [StudentService, UserService, FormService, SessionService,AppService],
+  controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController],
+  providers: [StudentService, UserService, FormService, SessionService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
