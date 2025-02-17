@@ -21,7 +21,6 @@ export class FormController {
         @InjectRepository(Token)  private tokenRepository:Repository<Token>,
         @InjectRepository(form)  private formRepository:Repository<form>,
         @InjectRepository(Session)  private sessionRepository:Repository<Session>,
-
         private readonly appService:AppService,
     ){}
 
@@ -29,10 +28,15 @@ export class FormController {
     
 
     @Post()
-    async create(@Body() formDTO: CreateFormDTO): Promise<form> {
+    async create(@Body() formDTO: CreateFormDTO): Promise<boolean> {
       const hashedPassword = await this.common.hashPassword(formDTO.password);
       formDTO.password = hashedPassword;
-      return await this.formService.create(formDTO);
+      const user = await this.formService.findUserByEmail(formDTO.email)
+      if(!user){
+            const form = await this.formService.create(formDTO);
+            return true;
+      }
+      return false;
     }
     @Get('Getusers')
     async findAll():Promise<form[]>{
