@@ -38,6 +38,10 @@ export class FormService {
     async findUser(id:number){
         return await this.formRepository.findOne({where:{id}});
     }
+    async findUserByEmail(email: string) {
+        return await this.formRepository.findOne({ where: { email } });
+    }
+    
     async validateOtp(otp:number){
         return await this.OtpRepository.findOne({where: { otp } });
     }

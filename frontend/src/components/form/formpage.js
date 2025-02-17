@@ -16,19 +16,8 @@ import { Confirmation } from '../confirmation/confirmation';
     })
     const [errors , setErrors] = useState({});
     const [message , setMessage] = useState(false);
-  
+    const [popup2 , setPopup2] = useState(false);
 
-
-    // const handleHash = async (data) => {
-
-    //   const encoder = new TextEncoder();  
-    //   const dataBuffer = encoder.encode(data); 
-    //   const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-    
-    //   const hashArray = Array.from(new Uint8Array(hashBuffer));
-    //   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    //   return hashHex;
-    // };
   
      
 
@@ -46,23 +35,29 @@ import { Confirmation } from '../confirmation/confirmation';
                 },
                 body:JSON.stringify(formData)
             })
-            if(response.ok){
-                setFormData({
-                    full_name: '',
-                    user_name: '',
-                    email: '',
-                    phone: '',
-                    password: '',
-                    confirm_password: '',
-                    grade: '',
-                    gender: '',
-                    sports: '',
-                })
-               
+            .then((res)=> res.json())
+            .then((res)=>{ 
+              setFormData({
+                  full_name: '',
+                  user_name: '',
+                  email: '',
+                  phone: '',
+                  password: '',
+                  confirm_password: '',
+                  grade: '',
+                  gender: '',
+                  sports: '',
+              })
+              if(res === true){
                 showed();
-            }
-            else{
-            }
+              }else{
+                setPopup2(true);
+
+
+
+              }
+            })
+            
         }
         else window.scrollTo({
           top : 0,
@@ -135,7 +130,6 @@ import { Confirmation } from '../confirmation/confirmation';
         if(data.grade ==='') errors.grade ="Please select the grade";
         return errors;
     }
-
     const validateField = (e) => {
         const { name, value } = e.target;
         switch (name) {
@@ -225,11 +219,15 @@ import { Confirmation } from '../confirmation/confirmation';
             break;
         }
     };
+    const offpop2 = (e)=>{
+      setPopup2(false)
+    }
        
 
   return (
     
        <div className="main">
+                <div class={popup2 ? 'popup show z-top' : 'popup '}><div class="popupmain"><div id="overlay"><div id="message"><div class="enqimg"><img alt="yes" src="images/exclam.png"/></div><p id="invert">The email already registered</p><div class="btns"><button id="okbtn" onClick={offpop2}>OK</button></div></div></div></div></div>
             <div className="form">
                 <div className="formmain">
                     <div className="formhed"></div>
