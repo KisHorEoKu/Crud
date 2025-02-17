@@ -23,6 +23,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailController } from './mail/mail.controller';
 import { AppService } from './app.service';
 import { Token } from './entity/token';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -49,9 +50,13 @@ import { Token } from './entity/token';
         },
       },
       defaults: {
-        from: '"No Reply" <no-reply@example.com>',  
+        from: '"Application" <no-reply@example.com>',  
       },
+     
     }),
+    ScheduleModule.forRoot(
+      
+    )
 
  
     

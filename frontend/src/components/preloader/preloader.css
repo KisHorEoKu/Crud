@@ -1,0 +1,21 @@
+
+.loadermain{   width: 100%; height: 100vh; display: flex;justify-content: center;align-items: center;}
+.loader{display:inline-block;position:relative;width:80px;height:80px}
+.loader div{position:absolute;top:33px;width:13px;height:13px;border-radius:50%;background:#c517f0;animation-timing-function:cubic-bezier(0,1,1,0)}
+.loader div:first-child{left:8px;animation:.6s infinite flip1}
+.loader div:nth-child(2){left:8px;animation:.6s infinite flip2}
+.loader div:nth-child(3){left:32px;animation:.6s infinite flip2}
+.loader div:nth-child(4){left:56px;animation:.6s infinite flip3}
+@keyframes flip1{
+    0%{transform:scale(0)}
+    100%{transform:scale(1)}
+}
+@keyframes flip3{
+    0%{transform:scale(1)}
+    100%{transform:scale(0)}
+}
+@keyframes flip2{
+    0%{transform:translate(0,0)}
+    100%{transform:translate(24px,0)}
+
+}

@@ -6,7 +6,7 @@ export const Footer = () => {
     <div class="footer">
         <div class="footermain">
             <div class="fortt1">
-                <h4>Copyright © 2020. All rights reserved.</h4>
+                <h4>Copyright © 2025. All rights reserved.</h4>
             </div>
             <div class="fortt2">
                 <ul class="fort2ul">
