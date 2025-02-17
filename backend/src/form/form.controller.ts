@@ -12,6 +12,7 @@ import { Token } from 'src/entity/token';
 import { Session } from 'src/entity/session';
 import { v4 as uuidv4 } from 'uuid'; 
 import { AppService } from 'src/app.service';
+import { Console } from 'console';
 
 @Controller('form')
 export class FormController {
@@ -68,6 +69,7 @@ export class FormController {
         console.log(token)
        
         const tokens =  await this.formService.validateToken(token);
+        console.log(tokens)
         if(tokens) {
             const expiredate = new Date(tokens?.expiryTime).toLocaleTimeString('en-US', {
                 hour: '2-digit',
@@ -79,8 +81,12 @@ export class FormController {
                 minute: '2-digit',
                 second: '2-digit',
               });
+              console.log(expiredate)
+              console.log(currentDateTime)
+
             
               if(expiredate >= currentDateTime){
+                console.log("reached IN ")
                 const pass = await this.formService.hashGenerate(password)
                 this.formRepository.update({ id: tokens.user_id }, { 
                     password: pass,

@@ -41,7 +41,7 @@ a{text-decoration: none; color: #000;}
 .main{background-image: linear-gradient(to right bottom, #75abdd, #7ba7e9, #8ba1f2, #a398f6, #c08cf3);}
 *{margin: 0;}
 /* body{background: url(../public/images/Responsive\ Registration\ Form\ in\ HTML\ &\ CSS\ \(1\).jpg) no-repeat; height: 4000px;} */
-.form{width: 90%; margin: 0 auto;padding-top: 8%;padding-left: 1.7%;padding-bottom: 2.5%;}
+.form{width: 90%; margin: 0 auto;padding-top: 6.6%;padding-left: 1.7%;padding-bottom: 2.5%;}
 .formmain{
   background-color: #fff;
   padding:2% 3%; border-radius: 5px;}

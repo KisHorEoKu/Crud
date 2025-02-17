@@ -1,6 +1,9 @@
 .formains,.forms,.formains11 > form{display: flex;}
-.forms{height: 100vh;width: 100vw; justify-content: center; align-items: center;  background-image: linear-gradient(to right bottom, #ffffff, #eeedfa, #dadcf5, #c5cbf1, #acbced, #96abdd, #809ace, #6a89be, #5673a0, #435d83, #314868, #20344d);}
-.formains {margin: 0 auto;width: 58%; justify-content: center;  }
+.forms{width: 100%; justify-content: center; align-items: center;  
+    /* background-image: linear-gradient(to right bottom, #ffffff, #eeedfa, #dadcf5, #c5cbf1, #acbced, #96abdd, #809ace, #6a89be, #5673a0, #435d83, #314868, #20344d); */
+    background: url('/images/paint.jpg');
+}
+.formains {margin: 0 auto;width: 58%; justify-content: center; margin-bottom: 1.9%;    margin-top: 9%; }
 .formains11 > form{flex-direction: column;}
 .formains1,.formains2{width: 50%;}
 .formains2{display: none;}

@@ -9,6 +9,7 @@ import { Main } from './main.js';
 import { Trunkboard } from './components/trunkboard/trunkboard.js';
 import { Notfound } from './components/notfound/notfound.js';
 import { Reset } from './components/reset/reset.js';
+import { Footer } from './components/footer/footer.js';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/form/reset" element={<Reset />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
+        <Footer/>
       </Router>
     </div>
   );

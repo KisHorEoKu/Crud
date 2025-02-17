@@ -42,7 +42,7 @@ export const Navbar = () => {
 
   return (
     <nav class="navbar">
-                <header className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'darks' : ''}>
+            <header className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'darks' : ''}>
                 <div className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'headermain dark' : 'headermain'}>
                     <div class="hedleft">
                     <a href=""><h3>csentral</h3></a>

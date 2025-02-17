@@ -41,8 +41,8 @@ import { Token } from './entity/token';
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',  
-        port: 587,                 // Replace with your SMTP port
-        secure: false,             // Use true for 465 port, false for other ports
+        port: 587,                 
+        secure: false,            
         auth: {
           user: 'kishorednmgroup@gmail.com', 
           pass: 'sgpu poph noxt tqwb',   
