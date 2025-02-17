@@ -133,8 +133,7 @@ export const Login = () => {
         <div className="formains2">
           <div className="formain21">
             <div className="formain211">
-              <h3>Hello, friend</h3>
-              <p>Enter your personal details and start your journey</p>
+             <img src="/images/paint.jpg" alt=""/>
             </div>
           </div>
         </div>

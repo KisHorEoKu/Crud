@@ -25,6 +25,7 @@ export const Forgot = ({type, setfors}) => {
     console.log(otps)
 
       try{
+        if(value === '') {setError({errors : "Enter your number"}) ; return}
         const response = await fetch('http://localhost:5000/form/otp',{
           method: "POST",
           headers:{
@@ -97,7 +98,7 @@ export const Forgot = ({type, setfors}) => {
                           <input  placeholder='Enter your mobile number'  maxlength="10" type="number" class="" id="phnum"/>
                     </div>
                     <div class="form-btn">
-                            <button class="verifyButton1" onClick={getOtp} type="submit">Get OTP</button>
+                            <button class="verifyButton1" onClick={getOtp}>Get OTP</button>
                     </div>
                    
                 </div>

@@ -115,9 +115,10 @@ body{margin: 0; border: 0;}
     justify-content: space-evenly;
 }
 .form-ipn{width: 60%;}
-.form-inpf{color: #ff0000; font-size: 1.3vw;}
+.form-inpf{color: #ff0000; font-size: 1.1vw;}
 .form-ipn > input{padding: 3%; border: none;  
     border-bottom: 1px solid #000;   width: 90%;}
+    .form-ipn >input:focus,.inp1 > input:focus{outline: none; border-color: rgb(144, 145, 255);}
 
 
 

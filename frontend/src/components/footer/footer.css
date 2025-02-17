@@ -5,3 +5,5 @@
 .fort2ul > li > a{font-size: 1.9vw ;background-color: transparent;color: #fff;}
 .fort2ul > li:not(:first-child){margin-left: 3%;}
 .fortt1 > h4{color: #fff;}
+.fort2ul > li > a{transition: all 0.5s ease-in-out;}
+.fort2ul > li > a:hover{color: #ffa55f;}
