@@ -42,39 +42,39 @@ export const Navbar = () => {
 
   return (
     <nav class="navbar">
-            <header className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'darks' : ''}>
-                <div className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'headermain dark' : 'headermain'}>
-                    <div class="hedleft">
-                    <a href=""><h3>csentral</h3></a>
-                    </div>
-                    <div class="hedcenter">
-                        <ul>
-                        
-                                    <li><a href="http://localhost:3000/home">home</a></li>
-                                    <li><a href="http://localhost:3000/updates">updates</a></li>
-                               
+        <header className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'darks' : ''}>
+            <div className={currentPath === '/dashboard' || currentPath === '/form/reset' ? 'headermain dark' : 'headermain'}>
+                <div class="hedleft">
+                <a href=""><h3>csentral</h3></a>
+                </div>
+                <div class="hedcenter">
+                    <ul>
+                    
+                                <li><a href="http://localhost:3000/home">home</a></li>
+                                <li><a href="http://localhost:3000/updates">updates</a></li>
+                            
 
-                            {/* <li><a href=""></a></li>
-                            <li><a href=""></a></li> */}
-                        </ul>
-                    </div>
-                    <div class=" hedrit">
-                            <div class="ritmain">
-                            <a href="#" onClick={Backtoadd}>
-                                    <div class="icons">
-                                    <i class="fa-regular fa-user"></i>
-                                    </div>
-                                    <div class="userinfo">
-                                        <span id="loginname">{user_name1 ? user_name1 : (name ? name : "Log In")}</span>
-                                    </div>
-                                    </a>
-                                    <div class="userinfo">
-                                        <button onClick={destroy}>log out</button>
-                                    </div>
-                            </div>                       
-                    </div>  
-                </div>      
-            </header>
+                        {/* <li><a href=""></a></li>
+                        <li><a href=""></a></li> */}
+                    </ul>
+                </div>
+                <div class=" hedrit">
+                        <div class="ritmain">
+                        <a href="#" onClick={Backtoadd}>
+                                <div class="icons">
+                                <i class="fa-regular fa-user"></i>
+                                </div>
+                                <div class="userinfo">
+                                    <span id="loginname">{user_name1 ? user_name1 : (name ? name : "Log In")}</span>
+                                </div>
+                                </a>
+                                <div class="userinfo">
+                                    <button onClick={destroy}>log out</button>
+                                </div>
+                        </div>                       
+                </div>  
+            </div>      
+        </header>
     </nav>
   )
 }
