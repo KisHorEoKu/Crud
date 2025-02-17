@@ -9,21 +9,14 @@ ul{padding: 0;}
 }
 .tm1c2ul > li {text-align: center;margin-bottom: 26%;}
 .tm1c1ul > li {text-align: center;}
-.tblemain{padding: 2% 4%;       margin-top: 5%;
-    
-}
-.tb2body{ overflow-y: scroll;
-    height: 60vh;}
-.tb2body::-webkit-scrollbar {
-    display: none;
-  }
-  
+.tblemain{padding: 2% 2%;margin-top: 5%;}
+.tb2body{ overflow-y: scroll;height: 60vh;}
+.tb2body::-webkit-scrollbar {display: none;}
 .tb2hed{display: flex;}
 .tb2hed1{width: 30%;}
 .tb2hed1 > h4{font-size: 2.2vw;text-transform: capitalize;margin: 0;    font-weight: 400;}
 .tb2hed2ul{display: flex;justify-content: flex-end;}
-.tb2hed2ul > li > a{    padding: 6px 12px; width: 5%; transition: all 0.5s ease-in-out;    background-color: #efefef;
-    border-radius: 5px;}
+.tb2hed2ul > li > a{    padding: 6px 12px; width: 5%; transition: all 0.5s ease-in-out;    background-color: #efefef;border-radius: 5px;}
     .tb2hed2ul > li > a:hover{background-color: orange;}
 .tb2hed2ul > li:not(:last-child){margin-right: 20px;}
 .tb2hed2{width: 70%;}

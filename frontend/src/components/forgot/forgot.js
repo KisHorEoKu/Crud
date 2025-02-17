@@ -6,6 +6,9 @@ export const Forgot = ({type, setfors}) => {
       const [error , setError] = useState({
         errors:''
       });
+      const[popup , setPop] = useState(false);
+      const[popup1 , setPop1] = useState(false);
+
       const [otps , setOpts] = useState({
         first: '',
         second:'',
@@ -14,6 +17,7 @@ export const Forgot = ({type, setfors}) => {
       });
       const getOtp = async (e)=>{
       const value = document.getElementById('phnum').value;
+
       const data = {
         phnumber: value
       }
@@ -32,6 +36,7 @@ export const Forgot = ({type, setfors}) => {
           console.log(data)
           if(data === true){
             setError({errors : ''})
+            setPop(true)
           }
           else{
             setError({errors : "Invalid number"})
@@ -49,9 +54,7 @@ export const Forgot = ({type, setfors}) => {
           e.preventDefault();
         
         const Validopt = Object.values(otps).join(''); 
-        console.log(Validopt)
-        const validopsend ={ valid:parseInt(Validopt)}
-
+        const validopsend ={ otp:parseInt(Validopt)}
         const response = await fetch('http://localhost:5000/form/otp/validate',{
           method:"POST",
           headers:{
@@ -61,8 +64,10 @@ export const Forgot = ({type, setfors}) => {
         }).then((res)=> res.json())
         .then((data)=>{
           if(data === true){
-
+            setShow(false)
+            setPop1(true)
           }else{
+            setError({errors : "Entered OTP is wrong"})
 
           }
         })
@@ -72,10 +77,19 @@ export const Forgot = ({type, setfors}) => {
       newOtp[index] = e.target.value; 
       setOpts(newOtp);
   };
+  const offpop = (e)=>{
+    setPop(false)
+  }
+  const offpop1 = (e)=>{
+    setPop1(false)
+  }
   
     
   return (
-    <div class={show ? 'popup show ' : 'popup '}>
+    <div>
+        <div class={popup1 ? 'popup show z-top' : 'popup '}><div class="popupmain"><div id="overlay"><div id="message"><div class="enqimg"><img alt="yes" src="images/yes.png"/></div><p id="invert">Reset link has send in email</p><div class="btns"><button id="okbtn" onClick={offpop1}>OK</button></div></div></div></div></div>
+        <div class={popup ? 'popup show z-top' : 'popup '}><div class="popupmain"><div id="overlay"><div id="message"><div class="enqimg"><img alt="yes" src="images/yes.png"/></div><p id="invert">Otp has send in email</p><div class="btns"><button id="okbtn" onClick={offpop}>OK</button></div></div></div></div></div>
+        <div class={show ? 'popup show ' : 'popup '}>
          <div class="popupmain flexed">  
          <form class="otp-Form" onSubmit={verifyotp} >
               <div class="form-ipnss">
@@ -91,7 +105,7 @@ export const Forgot = ({type, setfors}) => {
                           <span>{error.errors}</span>
                     </div>
                 <span class="mainHeading">Enter OTP</span>
-                <p class="otpSubheading">We have sent a verification code to your mobile number</p>
+                <p class="otpSubheading">We have sent a verification code to registered Email</p>
                 <div class="inputContainer">
                     <input required="required"   maxlength={1} type="number" class="otp-input" id="otp-input1"  onInput={(e) => {
                     if (e.target.value.length > 1) {e.target.value = e.target.value.slice(0, 1);}}} 
@@ -111,10 +125,12 @@ export const Forgot = ({type, setfors}) => {
                 </div>
                     <button class="verifyButton"  type="submit">Verify</button>
                     <button class="exitBtn" onClick={(e) => { e.preventDefault(); setShow(false);setfors(false) }}>×</button>
-                    <p class="resendNote">Didn't receive the code? <button class="resendBtn">Resend Code</button></p>
+                    {/* <p class="resendNote">Didn't receive the code? <button class="resendBtn">Resend Code</button></p> */}
 
           </form>                                             
          </div>           
+        </div>
     </div>
+   
   )
 }

@@ -12,7 +12,7 @@ import { Token } from 'src/entity/token';
 import { Session } from 'src/entity/session';
 import { v4 as uuidv4 } from 'uuid'; 
 import { AppService } from 'src/app.service';
-import { session } from 'src/entity/sessions';
+import { Console } from 'console';
 
 @Controller('form')
 export class FormController {
@@ -20,7 +20,8 @@ export class FormController {
         @InjectRepository(Otp)  private OtpRepository:Repository<Otp>,
         @InjectRepository(Token)  private tokenRepository:Repository<Token>,
         @InjectRepository(form)  private formRepository:Repository<form>,
-        // @InjectRepository(session)  private sessionRepository:Repository<session>,
+        @InjectRepository(Session)  private sessionRepository:Repository<Session>,
+
         private readonly appService:AppService,
     ){}
 
@@ -61,10 +62,53 @@ export class FormController {
         return await this.formService.generateOtp(phnumber);
 
     }
+
+    @Post('token/validate')
+    async tokenValidate(@Body() body: {token:string,password:string,confirm_password:string}):Promise<Boolean>{
+        const { token , password , confirm_password } = body;
+        console.log(token)
+       
+        const tokens =  await this.formService.validateToken(token);
+        console.log(tokens)
+        if(tokens) {
+            const expiredate = new Date(tokens?.expiryTime).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              });
+            const currentDateTime = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              });
+              console.log(expiredate)
+              console.log(currentDateTime)
+
+            
+              if(expiredate >= currentDateTime){
+                console.log("reached IN ")
+                const pass = await this.formService.hashGenerate(password)
+                this.formRepository.update({ id: tokens.user_id }, { 
+                    password: pass,
+                    confirm_password: confirm_password
+                  });
+                  this.sessionRepository.delete(tokens.id)
+                   return true
+              }
+              return false;
+
+
+        }
+        return false;
+        
+
+
+    }
+
     @Post('otp/validate')
     async validateOtp(@Body() body:{otp : number}):Promise<any>{
         const { otp } = body;
-        console.log(otp)
+        console.log("opt",otp);
         const otps =  await this.formService.validateOtp(otp);
         console.log(otps);
        
@@ -79,17 +123,16 @@ export class FormController {
                 minute: '2-digit',
                 second: '2-digit',
               });
-              console.log(expiredate)
-              console.log(currentDateTime)
               console.log(expiredate >= currentDateTime)
 
               
             if(expiredate >= currentDateTime){
                 //can delete the session here 
-                const sessionUpdate = await this.OtpRepository.update({  }, { isVerified: true });
-                const phone = otps.phnumber +" ";
+                const phone = otps.phnumber +"";
                 const user = await this.formRepository.findOne({where:{phone}})
+                console.log(user)
                 const id = otps.id;
+                
                 this.OtpRepository.delete(id);
 
                 if(user){
@@ -99,13 +142,12 @@ export class FormController {
                     tokens.user_id = user?.id;
                     tokens.isVerified = false;
                     tokens.expiryTime =new Date(new Date().getTime() + 1800000); 
-                    const tokenRepo = this.tokenRepository.create(tokens);
-                    const link =`http://localhost:5000/form/reset?q=${tokenID}`
+                    const tokenRepo = await this.tokenRepository.save(tokens);
+                    const link =`http://localhost:3000/form/reset?token=${tokenID}`
                     console.log(link);
 
                     //here i m sending the mail in the email
-                    // this.appService.sendMailLink(user.email,"",user.full_name);
-                
+                    this.appService.sendMailLink(user.email,link,user.full_name);     
                     return true;
 
                 }

@@ -136,7 +136,7 @@ body{margin: 0; border: 0;}
      background-color: rgb(144, 145, 255);
      transition-duration: .2s;
    }
-   
+   .z-top{z-index: 9999;}
 
   @media only screen and (max-width:64em) {
     .mainHeading {font-size: 2.6vw;}

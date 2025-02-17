@@ -39,8 +39,6 @@ import { Confirmation } from '../confirmation/confirmation';
 
      
         if(Object.keys(errorShow).length === 0){
-
-        
             const response = await fetch('http://localhost:5000/form',{
                 method :"POST",
                 headers:{
