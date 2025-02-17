@@ -53,18 +53,12 @@ export const Navbar = () => {
                 <div class="hedleft">
                 <a href=""><h3>csentral</h3></a>
                 </div>
+                {currentPath !=='/' &&   currentPath !=='/login' ? 
+                <>
                 <div class="hedcenter">
-                    <ul>
-                    {menu ? <>
+                    <ul>                   
                         <li><a href="http://localhost:3000/home">home</a></li>
                         <li><a href="http://localhost:3000/updates">updates</a></li>
-                     </> : <>
-                     
-                        
-                    </>}
-                               
-                            
-
                         {/* <li><a href=""></a></li>
                         <li><a href=""></a></li> */}
                     </ul>
@@ -90,6 +84,12 @@ export const Navbar = () => {
                 </>
                 }
                 </div>  
+                </>:
+                <>
+                </>
+                }
+                
+               
             </div>      
         </header>
     </nav>
