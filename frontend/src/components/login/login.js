@@ -29,22 +29,22 @@ export const Login = () => {
         body: JSON.stringify(userData),
       });
       const data = await response.json().catch((err) => {
-        console.error("Failed to parse JSON:", err);
         setError({ testcase: 'Invalid response format' });
       });     
 
       if(data && data.sessionIds){
         setAllow(true);
-        console.log("went in if part") ;
+        // console.log("went in if part") ;
         navigate('/dashboard');
         Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
         return;
       } 
       else{
         const allowse = userData.email.includes('@');
+        // console.log(allowse)
         if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and pasword' }); 
-        else if(userData.email === '') setError({ testcase: 'Enter your email' });      
-        else if(allowse) setError({ testcase: 'Enter your valid email' });      
+        else if(!allowse) setError({ testcase: 'Email includes @' });
+        else if(userData.email === '') setError({ testcase: 'Enter your email' });            
         else if(userData.password === '') setError({ testcase: 'Enter your password' }); 
         else setError({ testcase: 'Entered credentials are wrong' });  
       }
@@ -133,7 +133,7 @@ export const Login = () => {
         <div className="formains2">
           <div className="formain21">
             <div className="formain211">
-             <img src="/images/paint.jpg" alt=""/>
+             <img src="/images/paint.jpg  " alt=""/>
             </div>
           </div>
         </div>
