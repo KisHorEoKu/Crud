@@ -13,7 +13,7 @@ export const Navbar = () => {
     useEffect(()=>{
         setName(user_name1)
     },[currentPath])
-    
+        console.log("entered")
      
    
     const Backtoadd = ()=>{
