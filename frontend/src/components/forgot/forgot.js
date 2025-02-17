@@ -84,6 +84,19 @@ export const Forgot = ({type, setfors}) => {
   const offpop1 = (e)=>{
     setPop1(false)
   }
+
+  const[inp,setInp ] = useState({
+    phone:''
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;   
+      if(value.length <= 10 ){
+        setInp({
+          ...inp,
+          [name]: value
+        });
+      }  
+  };
   
     
   return (
@@ -95,7 +108,7 @@ export const Forgot = ({type, setfors}) => {
          <form class="otp-Form" onSubmit={verifyotp} >
               <div class="form-ipnss">
                     <div class="form-ipn">
-                          <input  placeholder='Enter your mobile number'  maxlength="10" type="number" class="" id="phnum"/>
+                          <input  placeholder='Enter your mobile number' value={inp.phone} onChange={handleChange} name='phone'  maxlength="10" type="number" class="" id="phnum"/>
                     </div>
                     <div class="form-btn">
                             <button class="verifyButton1" onClick={getOtp}>Get OTP</button>

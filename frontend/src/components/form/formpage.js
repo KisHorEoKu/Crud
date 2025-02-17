@@ -82,7 +82,17 @@ import { Confirmation } from '../confirmation/confirmation';
     
             return { ...prevState, sports: updatedSports };
           });
-        } else {
+        } 
+        else if(type === 'number' && name === 'phone') {
+          console.log("numberd")
+          if(value.length <= 10 ){
+            setFormData({
+              ...formData,
+              [name]: value
+            });
+          }
+
+        }  else {
           setFormData({
             ...formData,
             [name]: value
@@ -283,9 +293,10 @@ import { Confirmation } from '../confirmation/confirmation';
                                     <input
                                         type="number"
                                         name="phone"
-                                        value={formData.phone}
+                                        value={ formData.phone}
                                         onChange={handleChange}
                                         placeholder="Enter your number"
+                                        maxlength="10"
                                         onKeyUp={validateField}
                                         style={{borderColor: errors.phone ? 'red' : ''}}
 
