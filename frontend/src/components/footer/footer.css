@@ -7,3 +7,25 @@
 .fortt1 > h4{color: #fff;}
 .fort2ul > li > a{transition: all 0.5s ease-in-out;}
 .fort2ul > li > a:hover{color: #ffa55f;}
+.fortt1{  display: flex;align-items: center;}
+
+@media only screen and (max-width:64em) {
+    .fortt1 > h4 { font-size: 2.8vw;}
+    .fort2ul > li > a {font-size: 4.2vw;}
+    .fort2ul > li:not(:first-child) {margin-left: 5%;}
+    .footermain {padding: 3.5% 5%;}
+    .fortt1{  display: unset;}
+
+    
+    
+}
+
+@media only screen and (max-width:39em) {
+    .fortt1, .fortt2 {width: 100%;}
+    .fort2ul {justify-content: flex-start;}
+    .fort2ul > li > a {font-size: 1.4em;}
+    .fortt1 > h4 {font-size: 1.1em;}
+    .footermain {padding: 6.5% 5%;  }
+    .fortt2{margin-top: 4%;}
+    
+}
