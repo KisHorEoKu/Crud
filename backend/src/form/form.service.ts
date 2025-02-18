@@ -27,8 +27,10 @@ export class FormService {
         return await  this.formRepository.save(formObj);
 
     }
-    async findAll():Promise<form[]>{
-        return await this.formRepository.find();
+    async findAll(): Promise<form[]> {
+        return await this.formRepository.find({
+            select: ["id", "email", "full_name", "user_name", "phone", "grade", "sports", "gender"]
+        });
     }
 
     async delete(id:number):Promise<void>{

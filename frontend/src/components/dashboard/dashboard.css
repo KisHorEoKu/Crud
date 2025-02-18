@@ -63,7 +63,11 @@ tr > td{text-align: center;}
 }
 .tm1c1ul > li {margin-top: 28px;}
 ul{list-style-type: none;}
-.rhed1:hover,.rhed2:hover{background-color: orange; color: #fff;}
+.tablee{
+    width: 96%;
+    margin: 0 auto;
+}
+/* .rhed1:hover,.rhed2:hover{background-color: orange; color: #fff;} */
 .fa-solid, .fas { transition: all 0.5s ease-in-out; color: #000;}
 .fa-solid:hover, .fas:hover {color: #fff;}
 .spt >  div{width: 100%;}
@@ -79,6 +83,9 @@ ul{list-style-type: none;}
     margin-right: 4.7%;
 }
 .tabledate > h5{font-size: 1vw; color: #c2c2c2;}
+.rhed1 > div > input{width: 100%; border: none; text-align: center; background: transparent;}
+.rhed2 > div > input{width: 100%;  border: none; text-align: center;background: transparent;}
+.rhed1 > div > input:focus,.rhed2 > div > input:focus{outline: none; }
 
 @media only screen and (max-width:64em) {
 

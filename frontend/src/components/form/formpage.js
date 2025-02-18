@@ -52,9 +52,6 @@ import { Confirmation } from '../confirmation/confirmation';
                 showed();
               }else{
                 setPopup2(true);
-
-
-
               }
             })
             
@@ -98,7 +95,7 @@ import { Confirmation } from '../confirmation/confirmation';
             [name]: value
           });
         }
-      };
+    };
     const validateForm = (data) =>{
         const errors = {};
         if(!data.full_name.trim()){
@@ -111,12 +108,12 @@ import { Confirmation } from '../confirmation/confirmation';
             errors.user_name = "User name should more than 4 character";
         }
 
+        const result = data.email.includes('@');
         if(!data.email.trim()){
             errors.email = "Enter the email";
         }
-        else if(!data.email.trim()){
-           const result = data.email.includes('@');
-           if(result) errors.email = "Email should have @";
+        else if(!result){
+            errors.email = "Email should have @";
         }
 
         if(!data.phone.trim()) errors.phone ="Enter the number";
@@ -232,10 +229,8 @@ import { Confirmation } from '../confirmation/confirmation';
     const offpop2 = (e)=>{
       setPopup2(false)
     }
-       
-
-  return (
-    
+      
+  return (    
        <div className="main">
                 <div class={popup2 ? 'popup show z-top' : 'popup '}><div class="popupmain"><div id="overlay"><div id="message"><div class="enqimg"><img alt="yes" src="images/exclam.png"/></div><p id="invert">The email already registered</p><div class="btns"><button id="okbtn" onClick={offpop2}>OK</button></div></div></div></div></div>
             <div className="form">
