@@ -24,6 +24,8 @@ import { MailController } from './mail/mail.controller';
 import { AppService } from './app.service';
 import { Token } from './entity/token';
 import { ScheduleModule } from '@nestjs/schedule';
+import { DashboardController } from './dashboard/dashboard.controller';
+import { DashboardService } from './dashboard/dashboard.service';
 
 @Module({
   imports: [
@@ -61,8 +63,8 @@ import { ScheduleModule } from '@nestjs/schedule';
  
     
   ],
-  controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController, MailController],
-  providers: [StudentService, UserService, FormService, SessionService,AppService],
+  controllers: [StudentController, UserController, FormController, SessionController, ProfileController, AuthController, MailController, DashboardController],
+  providers: [StudentService, UserService, FormService, SessionService,AppService, DashboardService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

@@ -123,6 +123,9 @@ export const Login = () => {
                 <div className="forinp">
                   <a href="#" onClick={forgot}>Forgot password?</a>
                 </div>
+                <div className="forinp">
+                  <a href="#" onClick={e =>{ e.preventDefault() ;navigate('/')}}>Get started by register</a>
+                </div>
                 <div className="lsubmit">
                   <button type="submit"class="btnfire">Sign in</button>
                 </div>
