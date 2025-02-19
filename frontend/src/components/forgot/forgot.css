@@ -134,6 +134,7 @@ body{margin: 0; border: 0;}
      transition-duration: .2s;
    }
    
+   
    .verifyButton1:hover,.btnfire:hover {
      background-color: rgb(144, 145, 255);
      transition-duration: .2s;

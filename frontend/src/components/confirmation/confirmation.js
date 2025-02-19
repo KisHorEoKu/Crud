@@ -16,7 +16,7 @@ export const Confirmation = ({type}) => {
                     <div id="message">
                     <div class="enqimg"><img src="images/yes.png" alt="yes"/>
                     </div>
-                <p id="invert">Student Registered sucessfully</p>
+                <p id="invert">User Registered sucessfully</p>
                 <button id="okbtn" onClick={hide}>OK</button>
                 </div>
             </div>

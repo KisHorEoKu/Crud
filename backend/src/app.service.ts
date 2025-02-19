@@ -44,7 +44,9 @@ export class AppService {
                   </div>
                   <p style="font-size:1.1em">Hi,${name}</p>
                   <p>Use the following Link to complete your Reset password procedures. Link is valid for 30 minutes</p>
-                  <h2 style="font-size:13px;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${link}</h2>
+                  <h2 style="font-size:13px;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">
+                  <a href="${link}" style="color:#fff; background-color:rgb(134 134 250); padding:15px 20px">Click to reset password<a/>
+                  </h2>
                   <p style="font-size:0.9em;">Regards,<br />csentral</p>
                   <hr style="border:none;border-top:1px solid #eee" />
                   <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
