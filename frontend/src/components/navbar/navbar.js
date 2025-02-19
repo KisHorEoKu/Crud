@@ -50,7 +50,7 @@ export const Navbar = () => {
                                 
                             </div>
                             {
-                                currentpath !== '/login' &&  currentpath !== '/' ? 
+                                currentpath !== '/login' &&  currentpath !== '/' && currentpath !== '/form/reset' ? 
                                 <>
                                 <nav class="topbars">
                                     <div class="topbar">
