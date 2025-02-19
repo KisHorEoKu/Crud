@@ -18,9 +18,10 @@ export const Dashboard = () => {
     const [preloader, setPreloader] = useState(true);
     const location = useLocation();
     const user_name1 = location.state?.userData.name;
+    console.log(user_name1)
     const navigate = useNavigate();
 
-
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,10 +39,8 @@ export const Dashboard = () => {
             }
         };
         fetchData();
-        const ele = document.getElementById('loginname');
-        const value = ele.textContent;
-        console.log(value)
-        if(value === 'Login') window.location.reload();
+        
+          
        
     }, []);
 
@@ -114,7 +113,6 @@ export const Dashboard = () => {
         setEditingData(null); 
     };
     const updateData = async () => {
-        console.log(editingData)
         try {
           const response = await fetch(`http://localhost:5000/dashboard/update`, {
             method: "PUT",
@@ -122,13 +120,14 @@ export const Dashboard = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(editingData),
-          });
+          })
           const updatedData = await response.json();
           setFilteredData(
             filteredData.map((item) =>
               item.id === updatedData.id ? updatedData : item
             )
           );
+          window.location.reload()
           setEditingData(null); 
         } catch (error) {
           console.error("Error updating data:", error);
@@ -156,8 +155,7 @@ export const Dashboard = () => {
                             </div>
                         </div>
                         <div className="tb2body">
-                            <div className="tabless">
-                                <div className="rhed">
+                        <div className="rhed">
                                     <div>Full name</div>
                                     <div>User name</div>
                                     <div>Phone</div>
@@ -167,7 +165,9 @@ export const Dashboard = () => {
                                     <div>Gender</div>
                                     <div>Edit</div>
                                     <div>Delete</div>
-                                </div>
+                        </div>
+                            <div className="tabless">
+                               
                                 {filteredData.map((data, index) => (
                                     <div key={data.id}  style={editingData && editingData.id === data.id ?  {borderColor: '#000',border: '1px solid'} : {}} className={index % 2 === 0 ? "rhed1" : "rhed2"}>
                                     <div>
@@ -225,12 +225,12 @@ export const Dashboard = () => {
                                         {editingData && editingData.id === data.id ? (
                                         <>
                                         <div>
-                                            <button className="savebtn" onClick={updateData}>
+                                            <button className="savebtn addbtn button" onClick={updateData}>
                                             Save
                                             </button>
                                         </div>
                                         <div>
-                                                <button className="cancelbtn" onClick={cancelEdit}>
+                                                <button className="cancelbtn delebtn button" onClick={cancelEdit}>
                                                 Cancel
                                                 </button>
                                         </div>
@@ -238,12 +238,16 @@ export const Dashboard = () => {
                                         ) : (
                                             <>
                                              <div>
-                                                <button className="addbtn" onClick={editFile} data-id={data.id}>
+                                                
+
+                                                <button className="addbtn button" onClick={editFile} data-id={data.id}>
                                                 Edit
                                                 </button>
                                             </div>
                                             <div>
-                                                 <button className="delebtn" onClick={userdelete} data-id={data.id}>
+                                                    
+
+                                                 <button className="delebtn button" onClick={userdelete} data-id={data.id}>
                                                 Delete
                                                 </button>
                                             </div>

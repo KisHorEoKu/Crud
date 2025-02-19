@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const Navdrop = () => {
     const [open, setOpen] = useState(false);
         const navigate = useNavigate();
-    
+        
 
     const destroy = async (e) => {     
         e.preventDefault();
@@ -24,7 +24,7 @@ export const Navdrop = () => {
 
     return (
         <div className="bg-gray-200 flex justify-center items-center dark:bg-gray-500">
-            <div className="bg-white dark:bg-gray-800  shadow flex justify-center items-center">
+            <div className="bg-white dark:bg-gray-800   flex justify-center items-center">
                 {/* Profile Button */}
                 <div
                     onClick={() => setOpen(!open)}
@@ -33,7 +33,7 @@ export const Navdrop = () => {
                     }`}
                 >
                     <div className="flex justify-center items-center gap-3 space-x-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 dark:border-white border-gray-900">
+                        <div className="w-16 rounded-full overflow-hidden border-2 dark:border-white border-gray-900">
                             <img
                                 src="https://images.unsplash.com/photo-1610397095767-84a5b4736cbd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                                 alt="Profile"
@@ -41,13 +41,13 @@ export const Navdrop = () => {
                             />
                         </div>
                         <div className="font-semibold dark:text-white text-gray-900 text-lg">
-                            <div className="portext" id="loginname">Hasan Muhammad</div>
+                            <div className="portext" id="loginname">Login</div>
                         </div>
                     </div>
 
                     {/* Dropdown Menu */}
                     {open && (
-                        <div className="absolute w-46 px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-5 transition ease-out duration-100 transform opacity-100 scale-100">
+                        <div className="absolute w-35 px-5 py-3 dark:bg-gray-800 bg-white rounded-lg shadow border dark:border-transparent mt-5 transition ease-out duration-100 transform opacity-100 scale-100">
                             <ul className="space-y-2 dark:text-white">
                                 <li>
                                     <a
