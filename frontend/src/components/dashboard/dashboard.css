@@ -1,7 +1,9 @@
 /* table */
 .tablemain{display: flex;}
 .tablemain1{width: 6%; display: flex;    flex-direction: column;    border-right: 1px solid #dbd9d9;}
-.tablemain2{width: 100%;    border-right: 1px solid #d1cfcf;}
+.tablemain2{width: 100%;   
+     /* border-right: 1px solid #d1cfcf; */
+    }
 .tablemain3{width: 10%;}
 ul{padding: 0;}
 .tm1c1 {
@@ -9,9 +11,9 @@ ul{padding: 0;}
 }
 .tm1c2ul > li {text-align: center;margin-bottom: 26%;}
 .tm1c1ul > li {text-align: center;}
-.tblemain{padding: 2% 2%;margin-top: 5%;}
-.tb2body{ overflow-y: scroll;height: 58vh;}
-.tb2body::-webkit-scrollbar {display: none;}
+.tblemain{padding: 2% 2%;margin-top: 3.6%;}
+.tabless{ overflow-y: scroll;height: 57vh;}
+.tabless::-webkit-scrollbar {display: none;}
 .tb2hed{display: flex;}
 .tb2hed1{width: 30%;}
 .tb2hed1 > h4{font-size: 2.2vw;text-transform: capitalize;margin: 0;    font-weight: 400;}
@@ -23,43 +25,138 @@ ul{padding: 0;}
 .tb2body > table{
     width: 100%;
 }
+.button {
+    position: relative;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background-color:rgb(134 134 250) ;
+    transition: all 0.2s ease;
+  }
+  
+  .button:active {
+    transform: scale(0.96);
+  }
+  
+  .button:before,
+  .button:after {
+    position: absolute;
+    content: "";
+    width: 150%;
+    left: 50%;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: -1000;
+    background-repeat: no-repeat;
+  }
+  
+  .button:hover:before {
+    top: -70%;
+    background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, transparent 20%, #7d2ae8 20%, transparent 30%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
+      10% 10%, 18% 18%;
+    background-position: 50% 120%;
+    animation: greentopBubbles 0.6s ease;
+  }
+  
+  @keyframes greentopBubbles {
+    0% {
+      background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
+        40% 90%, 55% 90%, 70% 90%;
+    }
+  
+    50% {
+      background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%,
+        50% 50%, 65% 20%, 90% 30%;
+    }
+  
+    100% {
+      background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
+        50% 40%, 65% 10%, 90% 20%;
+      background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+  }
+  
+  .button:hover::after {
+    bottom: -70%;
+    background-image: radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, transparent 10%, #7d2ae8 15%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%),
+      radial-gradient(circle, #7d2ae8 20%, transparent 20%);
+    background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
+    background-position: 50% 0%;
+    animation: greenbottomBubbles 0.6s ease;
+  }
+  
+  @keyframes greenbottomBubbles {
+    0% {
+      background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
+        70% -10%, 70% 0%;
+    }
+  
+    50% {
+      background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
+        105% 0%;
+    }
+  
+    100% {
+      background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
+        110% 10%;
+      background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+    }
+  }
+  
 .tb2hed2ul > li > input:focus { outline: none; border-color: #ffa55f;}
 .wid1.uppc{text-transform: capitalize!important;}
 .tabledate{margin-bottom: 1%;}
 .tb2body{margin-top: 2%;}
 tr > td{text-align: center;}
-.rhed > div{color: #c0bbbb; text-align: center;  text-transform: capitalize;    font-size: 1.2vw;   padding: 1% 0%;   width: 10%;}
+.rhed > div{color: #000; text-align: center;  text-transform: capitalize;    font-size: 1.2vw;   padding: 0.7% 0%;   width: 10%;}
 .rhed,.rhed1,.rhed2{cursor: pointer; text-transform: capitalize;  display: flex; transition: all 0.5s ease-in-out;}
 .wid1{width: 20%!important; text-transform: lowercase!important; }
 .rhed {
     /* margin-bottom: 2%; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
     /* padding: 1% 0; */
     border: 1px solid #e6e6e6;
-}.rhed1{background-color: #f6f6f6;border-radius: 10px;
+}.rhed1{background-color: #f6f6f6;
+    /* border-radius: 10px; */
     /* margin-bottom: 2%; */
 }
-.rhed2{background-color: #fff;border-radius: 10px;
+.rhed2{background-color: #fff;
+    /* border-radius: 10px; */
     /* margin-bottom: 2%; */
      border: 1px solid #f6f6f6;}
 .tabless{display: flex; width: 100%; flex-direction: column;}
 .rhed1 > div{ align-items: center;    flex-wrap: wrap;
     justify-content: center; display: flex;  color: #000;  font-size: 1.1vw;  
-     padding: 0.6% 0%; 
+     padding: 0.4% 0%; 
      text-align: center;  width: 10%;}
 .tm1c2ul > li > a{font-size: 1.6vw;}
-.rhed2 > div{  font-size: 1.1vw;   flex-direction: column;  color: #000;   display: flex; align-items: center; justify-content: center;   padding: 0.6% 0%; text-align: center;  width: 10%;}
+.rhed2 > div{  font-size: 1.1vw;   flex-direction: column;  color: #000;   display: flex; align-items: center; justify-content: center;   padding: 0.4% 0%; text-align: center;  width: 10%;}
 .addbtn {
     background-color: orange;
     border: none;    font-size: 1.1vw;
-    border-radius: 11px;
-    padding: 6% 11%; cursor: pointer;
+   
+    padding: 1% 11%; cursor: pointer;
 }
 .delebtn {
-    background-color: #d1cfcf;
     border: none;    font-size: 1.1vw;
-    border-radius: 11px;cursor: pointer;
-    padding: 6% 11%;
+    cursor: pointer;
+    padding: 1% 11%;
 }
 .tm1c1ul > li {margin-top: 28px;}
 ul{list-style-type: none;}

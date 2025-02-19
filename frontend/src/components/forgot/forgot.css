@@ -83,6 +83,7 @@ body{margin: 0; border: 0;}
     color: black;
     font-size: 1.1em;
     cursor: pointer;
+    line-height: 0.9vw;
   }
   .formains11 {
     position: relative;
@@ -145,4 +146,13 @@ body{margin: 0; border: 0;}
     .resendNote {font-size: 1.6vw;}
     
     
+  }
+  @media only screen and (max-width:39em) {
+    .form-ipnss {flex-direction: column;}
+    .form-ipn ,.form-ipn > input{width: 100%;}
+    .form-btn{margin-top: 8%;text-align: center;}
+    .mainHeading {font-size: 1.2em;}
+    .otpSubheading {font-size: 0.8em;}
+    .verifyButton1, .btnfire {padding: 9px 18px;}
+
   }

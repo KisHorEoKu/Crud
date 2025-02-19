@@ -85,7 +85,7 @@ export const Reset = () => {
                 <input type="text" onChange={handleChange} placeholder="Confirm password" name="confirm_password"/>
                 </div>
                 <div class="btntank">
-                        <button type="submit" class="submit">Sign in</button>
+                        <button type="submit" class="submit">Submit</button>
                 </div>
 
                    

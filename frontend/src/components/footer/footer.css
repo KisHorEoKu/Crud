@@ -1,4 +1,4 @@
-.footermain{display: flex; background-color: rgb(134 134 250);    padding: 1.5% 5%;
+.footermain{display: flex; background-color: rgb(134 134 250);    padding: 0.6% 5%;
 }
 .fortt1,.fortt2{width: 50%;}
 .fort2ul {display: flex; justify-content: flex-end;}

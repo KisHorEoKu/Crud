@@ -53,8 +53,6 @@ export const Login = () => {
       console.log("error is throwing check for updates")
     }
   };
-
-
   const revealPassword = (e) => {
     const pass = document.getElementById('passcode');
     e.preventDefault();
@@ -66,7 +64,6 @@ export const Login = () => {
     //   e.target.innerHTML = '<i class="fa-regular fa-eye-slash"></i>'; 
         }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({
@@ -74,7 +71,6 @@ export const Login = () => {
       [name]: value
     });
   };
-
   const forgot = async (e)=> {
     e.preventDefault();
     console.log(forshow)
@@ -83,6 +79,7 @@ export const Login = () => {
     
 
   }
+
   return (
     <div className="forms">
       <div className="formains">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter as Router , Routes, Route, useNavigate , useLocation} from 'react-router-dom';
+import { useNavigate , useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 
 
@@ -24,19 +24,29 @@ export const Main = () => {
       })
       .then((response) => response.json())
       .then((datas) => {
+        console.log(datas)
         if (datas && allow ) {
           const availableRoutes = ['/login', '/'];
           const path = location.pathname;
           if(! availableRoutes.includes(path)) navigate(path, { state:{ userData: datas } }) 
           setAllow(false)
+          const user_name = datas.name;
+          const ele = document.getElementById('loginname');
+          ele.innerText = user_name ? user_name : 'Login';
+
 
         }else{
           navigate('/dashboard', { state:{ userData: datas } });
+          console.log(datas)
+          const user_name = datas.name;
+          const ele = document.getElementById('loginname');
+          ele.innerText = user_name ? user_name : 'Login';
         }
       })
       .catch((error) => console.log("Error during session validation:", error));
     }
     else{   
+      console.log("entered to else part ")
       const availableRoutes = ['/login', '/','/form/reset'];
       const path = location.pathname;
       if( availableRoutes.includes(path)) navigate(path) 

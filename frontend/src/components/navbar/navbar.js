@@ -1,16 +1,36 @@
 import React, { useState } from 'react';
 import { useNavigate  , useLocation} from 'react-router-dom';
+import './navbar.css';
+import Cookies from 'js-cookie';
 
-import { Navdrop } from '../dropdown/navdrop';
 
 export const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [menuOpen, setMenuOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const currentpath = location.pathname;
-    console.log(currentpath)
+    const destroy = async (e) => {     
+        e.preventDefault();
+        Cookies.remove('token');
+        navigate('/login');
+
+        await fetch('http://localhost:5000/session/destroy', {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "cookie": Cookies.get('token') })
+        });
+    };
+    const [respdrop, setRespDrop ] = useState(false);
+    const showresdrop = (e) =>{
+        e.preventDefault();
+
+        if(window.innerWidth <= 768){ 
+            respdrop ? setRespDrop(false) : setRespDrop(true);
+        }
+    }
 
    
 
@@ -19,38 +39,61 @@ export const Navbar = () => {
             <div className="">
                 <div className="antialiased bg-gray-100 dark:bg-gray-900">
                     <div className="w-full text-gray-700 bg-white dark:text-gray-200 dark:bg-gray-800">
-                        <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-                            <div className="flex flex-row items-center justify-between p-4">
-                                <a href="#" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white">
+                        <div className="flex flex-col max-w-screen-xl px-4 mx-auto flexed-row md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+                            <div className="flex flex-star0t flex-row items-center justify-between p-4">
+                                <a href="/dashboard" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white">
                                 csentral
                                 </a>
-                                <button 
-                                    className="rounded-lg md:hidden focus:outline-none focus:shadow-outline" 
-                                    onClick={() => setMenuOpen(!menuOpen)}
-                                >
-                                    <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
-                                        {menuOpen ? (
-                                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/>
-                                        ) : (
-                                            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd"/>
-                                        )}
-                                    </svg>
-                                </button>
+                                <div>
+                                    
+                                </div>
+                                
                             </div>
                             {
                                 currentpath !== '/login' &&  currentpath !== '/' ? 
                                 <>
-                                <nav className={`flex-col flex-grow ${menuOpen ? "flex" : "hidden"} pb-4 md:pb-0 md:flex  flexesd md:justify-end md:flex-row`}>
-                                <a className="px-4 py-2 mt-2 text-sm font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" href="#">Blog</a>
-                                <a className="px-4 py-2 mt-2 text-sm font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" href="#">Portfolio</a>
-                                <a className="px-4 py-2 mt-2 text-sm font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" href="#">About</a>
-                                <a className="px-4 py-2 mt-2 text-sm font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" href="#">Contact</a>
-                                
-                                {/* Dropdown */}
-                                <div className="relative">
-                                  <Navdrop/>
-                                </div>
-                            </nav>
+                                <nav class="topbars">
+                                    <div class="topbar">
+                                        <div class="topbarmain">
+                                            <ul class="tleftul">
+                                                <li><a  class={currentpath === '/home' ? 'font-semibold active' : 'font-semibold'}   href="/home">home</a></li>
+                                                <li><a class={currentpath === '/updates' ? 'font-semibold active' : 'font-semibold'} href="/updates">updates</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="userdrop">
+                                            <ul class="udropul">
+                                                <li>
+                                                    <a href="#" onClick={showresdrop}>
+                                                    <div class="proimg">
+                                                        <img src="/images/man.png"  alt=""/>
+                                                    </div>
+                                                    <div class="protxt">
+                                                        <span id="loginname"></span>
+                                                    </div>
+                                                    </a>
+                                                    <ul class="udropinul">
+                                                        <li><a href=""><label><i class="fa-solid fa-gear"></i></label> Settings</a></li>
+                                                        <li><a href=""><label><i class="fa-solid fa-pen"></i></label> updates</a></li>
+                                                        <li><a href="" onClick={destroy}><label><i class="fa-solid fa-arrow-right-from-bracket"></i></label> logout</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class={respdrop ? 'respnav show' : 'respnav'}>
+                                            <div class="respnavmain">
+                                                <div class="respnav1">
+                                                    <ul>
+                                                        <li><a class="font-semibold " href=""> <label><i class="fa-solid fa-house"></i></label> home</a></li>
+                                                        <li><a class="font-semibold " href=""><label><i class="fa-solid fa-pen"></i></label>updates</a></li>
+                                                        <li><a class="font-semibold " href=""><label><i class="fa-solid fa-gear"></i></label>settings</a></li>
+                                                        <li><a class="font-semibold " href="#" onClick={destroy}><label><i class="fa-solid fa-arrow-right-from-bracket"></i></label>Logout</a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
                                 </>:
                                 <>
                                 </>
