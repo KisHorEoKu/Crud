@@ -183,6 +183,11 @@ ul{list-style-type: none;}
 .rhed1 > div > input{width: 100%; border: none; text-align: center; background: transparent;}
 .rhed2 > div > input{width: 100%;  border: none; text-align: center;background: transparent;}
 .rhed1 > div > input:focus,.rhed2 > div > input:focus{outline: none; }
+.fmain{position: relative;}
+.fmain::after{content: '' ; background-image: url(/images/7123.jpg); background-position: 100% auto; width: 50px; height: 50px;}
+
+
+
 
 @media only screen and (max-width:64em) {
 
