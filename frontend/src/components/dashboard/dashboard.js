@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Popup } from '../confirmation/popup';
 import { Preloader1 } from '../preloader/preloader1';
 import { Edit } from '../form/edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers , deleteUser} from '../../store/actions/formaction.ts';
 
 export const Dashboard = () => {
 
@@ -17,32 +19,50 @@ export const Dashboard = () => {
     const [edit,setEdit ] = useState(false);
     const [preloader, setPreloader] = useState(true);
     const location = useLocation();
-    const user_name1 = location.state?.userData.name;
-    console.log(user_name1)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const user_name1 = location.state?.userData.name;
+    const users = useSelector((state)=> state.users)
     
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch('http://localhost:5000/form/Getusers', {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                })
-                const data = await res.json();
-                setTabledata(data);
-                setFilteredData(data);
+        // const fetchData = async () => {
+        //     try {
+        //         const res = await fetch('http://localhost:5000/form/Getusers', {
+        //             method: "GET",
+        //             headers: { "Content-Type": "application/json" },
+        //         })
+        //         const data = await res.json();
+        //         dispatch(getUsers(data))
+        //         setTabledata(data);
+        //         setFilteredData(data);
+
                 
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-        fetchData();
+                
+        //     } catch (error) {
+        //         console.error('Error fetching users:', error);
+        //     }
+        // };
+        // fetchData();
         
           
        
     }, []);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await dispatch(getUsers());    
+            setFilteredData(response);
+            setTabledata(response);
+           
+          } catch (error) {
+            console.error('Error fetching users:', error);
+          }
+        };
+    
+        fetchUsers();
+      }, [dispatch]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -84,17 +104,15 @@ export const Dashboard = () => {
         setIds(id);
     }
     const deleteuser = async() =>{
-
-        const res = await fetch(`http://localhost:5000/form/delete`,{
-            method:"DELETE",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({"id":ids})        
-        })
-        .then((res)=>{
-           window.location.reload();
-        })
+        try{
+            const response = await deleteUser(ids);
+            if(response === true){
+                window.location.reload();
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
     }
     const handleInputChange = (e) =>{
         const { name, value } = e.target;
@@ -103,7 +121,6 @@ export const Dashboard = () => {
         [name]: value,
         }));
     }
-
     const editFile = (e) => {
         const id = e.target.getAttribute("data-id");
         const dataToEdit = filteredData.find((item) => item.id === parseInt(id));
@@ -132,7 +149,7 @@ export const Dashboard = () => {
         } catch (error) {
           console.error("Error updating data:", error);
         }
-      };
+    };
   
 
     return (

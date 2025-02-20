@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect , useState}from 'react'
 import './notfound.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector , useDispatch } from 'react-redux';
+import { getUsers } from '../../store/actions/formaction.ts';
 
 export const Notfound = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const travelHome = (e)=>{
         e.preventDefault();
         navigate('/dashboard')
     }
-    
+    const users = useSelector((state)=> state.users)
+    useEffect(async ()=>{
+        const response = await dispatch(getUsers());
+    },[dispatch])
+ 
+    console.log("404 not found",users)
 
 
   return (

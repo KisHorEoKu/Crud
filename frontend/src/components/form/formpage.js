@@ -1,5 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Confirmation } from '../confirmation/confirmation';
+import { useSelector ,useDispatch } from 'react-redux';
+import { createUser } from '../../store/actions/formaction.ts';
+import { useNavigate } from 'react-router-dom';
+import { Preloader1 } from '../preloader/preloader1.js';
+
  const Formpage = () => {
 
     const [formData ,setFormData] = useState({
@@ -17,7 +22,19 @@ import { Confirmation } from '../confirmation/confirmation';
     const [errors , setErrors] = useState({});
     const [message , setMessage] = useState(false);
     const [popup2 , setPopup2] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const users = useSelector((state) =>state.users );
+    const [preloader, setPreloader] = useState(true);
 
+    useEffect(() => {
+      setTimeout(() => {
+          setPreloader(false);
+      }, 1000);
+    }, []);
+    if (preloader) {
+      return <Preloader1 />;
+    }
   
      
 
@@ -25,45 +42,33 @@ import { Confirmation } from '../confirmation/confirmation';
         e.preventDefault();
         const errorShow = validateForm(formData);
         setErrors(errorShow);
-
-     
+          
         if(Object.keys(errorShow).length === 0){
-            const response = await fetch('http://localhost:5000/form',{
-                method :"POST",
-                headers:{
-                    'content-type': 'application/json'
-                },
-                body:JSON.stringify(formData)
+
+            const response = await createUser(formData);
+           if(response === true){
+            navigate('/login')
+            setFormData({
+              full_name: '',
+              user_name: '',
+              email: '',
+              phone: '',
+              password: '',
+              confirm_password: '',
+              grade: '',
+              gender: '',
+              sports: '',
             })
-            .then((res)=> res.json())
-            .then((res)=>{ 
-              setFormData({
-                  full_name: '',
-                  user_name: '',
-                  email: '',
-                  phone: '',
-                  password: '',
-                  confirm_password: '',
-                  grade: '',
-                  gender: '',
-                  sports: '',
-              })
-              if(res === true){
-                showed();
-              }else{
-                setPopup2(true);
-              }
-            })
-            
+           }
+
         }
         else window.scrollTo({
           top : 0,
           left : 0,
           behavior: 'smooth'
         });
-
-
     }
+    
     const showed = (e)=>{console.log("called"); setMessage(true)}
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;

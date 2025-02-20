@@ -6,6 +6,7 @@ import './login.css';
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Forgot } from '../forgot/forgot';
+import { Preloader1 } from '../preloader/preloader1';
 
 export const Login = () => {
   const [userData, setUserData] = useState({
@@ -17,7 +18,17 @@ export const Login = () => {
   });
   const[forshow , setFor] = useState(false);
   const [allow, setAllow] = useState(false);
-  const  navigate = useNavigate()
+  const  navigate = useNavigate();
+  const [preloader, setPreloader] = useState(true);
+  
+  useEffect(() => {
+    setTimeout(() => {
+        setPreloader(false);
+    }, 1000);
+  }, []);
+  if (preloader) {
+    return <Preloader1 />;
+  }
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -79,6 +90,7 @@ export const Login = () => {
     
 
   }
+    
 
   return (
     <div className="forms">
