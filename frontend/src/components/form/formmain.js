@@ -1,10 +1,12 @@
-import React,{ useState }  from 'react';
+import React,{ useState ,useEffect}  from 'react';
 import './formmain.css'; 
 import { Common } from '../common/common';
 import { useNavigate} from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Forgot } from '../forgot/forgot';
+import { Preloader1 } from '../preloader/preloader1';
+
 
 export const Formmain = () => {
 
@@ -17,7 +19,17 @@ export const Formmain = () => {
       });
       const[forshow , setFor] = useState(false);
       const [allow, setAllow] = useState(false);
-      const  navigate = useNavigate()
+      const [preloader, setPreloader] = useState(true);
+      const  navigate = useNavigate();
+
+       useEffect(() => {
+              setTimeout(() => {
+                  setPreloader(false);
+              }, 1000);
+        }, []);
+      if (preloader) {
+            return <Preloader1 />;
+        }
       const handleLoginSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -75,14 +87,11 @@ export const Formmain = () => {
         e.preventDefault();
         console.log(forshow)
         setFor(true);  
-        
-        
-    
+
       }
 
   return (
     <div className='fmain'>
-
          <form class="formes" onSubmit={handleLoginSubmit}>
             <div class="fohed">
                 <h3>Account Login</h3>

@@ -11,23 +11,29 @@ import { Notfound } from './components/notfound/notfound.js';
 import { Reset } from './components/reset/reset.js';
 import { Footer } from './components/footer/footer.js';
 import { Formmain } from './components/form/formmain.js';
+import { Provider } from 'react-redux';
+import store from './store/index.js';
+
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Navbar />
-        <Main/>
-        <Routes>
-          <Route path="/" element={<Formpage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/trunk" element={<Trunkboard />} />
-          <Route path="/login" element={<Formmain />} />
-          <Route path="/form/reset" element={<Reset />} />
-          <Route path="*" element={<Notfound />} />
-        </Routes>
-        <Footer/>
-      </Router>
+      <Provider store={store}>
+        <Router>
+            <Navbar />
+              <Main/>
+                <Routes>
+                  <Route path="/" element={<Formpage />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/trunk" element={<Trunkboard />} />
+                  <Route path="/login" element={<Formmain />} />
+                  <Route path="/form/reset" element={<Reset />} />
+                  <Route path="*" element={<Notfound />} />
+                </Routes>
+            <Footer/>
+        </Router>
+      </Provider>
+     
     </div>
   );
 }

@@ -15,7 +15,7 @@ export const Navbar = () => {
         Cookies.remove('token');
         navigate('/login');
 
-        await fetch('http://localhost:5000/session/destroy', {
+        const response = await fetch('http://localhost:5000/session/destroy', {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -31,9 +31,6 @@ export const Navbar = () => {
             respdrop ? setRespDrop(false) : setRespDrop(true);
         }
     }
-
-   
-
     return (
         <nav className="navbar">
             <div className="">
