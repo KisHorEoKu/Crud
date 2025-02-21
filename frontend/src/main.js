@@ -2,50 +2,64 @@ import React, { useState } from 'react'
 import { useNavigate , useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 import { validateToken } from './store/actions/formaction.ts'
-
+import { useDispatch } from 'react-redux';
 
 export const Main = () => {
 
     const navigate = useNavigate(); 
     const [allow ,setAllow] =useState(true);
     const location = useLocation();
+    const dispatch = useDispatch();
 
-  // Check cookie and validate session
-  const cookieCheck = async() => {
-    const data = getCookie('token');
-    if (data) {
-      try{
-        console.log("API entered to validate");
-          const response = await validateToken(data);
-          if(response.data && allow){
-            const availableRoutes = ['/login', '/'];
-            const path = location.pathname;
-            if(! availableRoutes.includes(path)) navigate(path, { state:{ userData: data } }) 
-            setAllow(false)
-            const user_name = data.name;
-            const ele = document.getElementById('loginname');
-            ele.innerText = user_name ? user_name : 'Login';
+    useEffect(()=>{
+      const cookieCheck = async() => {
+        const data = getCookie('token');
+        if (data) {
+          try{
+            console.log("API entered to validate");
+              const response = dispatch(validateToken(data)).unwrap(); 
+              // const response =validateToken(data);
+
+              console.log(response.data)
+    
+              if(response.data && allow){
+                const availableRoutes = ['/login', '/'];
+                const path = location.pathname;
+                getName();
+                if(! availableRoutes.includes(path)) navigate(path, { state:{ userData: data } }) 
+                setAllow(false)
+              }
+              else{ 
+                 if(!allow){navigate('/dashboard', { state:{ userData: data } });}
+                setAllow(true); 
+                console.log(allow) 
+
+
+                      
+              }
           }
-          else{ 
-             navigate('/dashboard', { state:{ userData: data } });
-            console.log(data)
-            const user_name = data.name;
-            const ele = document.getElementById('loginname');
-            ele.innerText = user_name ? user_name : 'Login';
-          }
-      }
-      catch(error){
-          console.log(error)
-      }          
-    }
-    else{   
-      console.log("entered to else part ")
-      const availableRoutes = ['/login', '/','/form/reset'];
-      const path = location.pathname;
-      if( availableRoutes.includes(path)) navigate(path) 
-      else navigate('/login')  
-    }
-  };
+          catch(error){
+              console.log(error)
+          }          
+        }
+        else{   
+          console.log("entered to else part ")
+          const availableRoutes = ['/login', '/','/form/reset'];
+          const path = location.pathname;
+          if( availableRoutes.includes(path)) navigate(path) 
+          else navigate('/login')  
+        }
+      };
+      cookieCheck();
+      setAllow(false)
+    
+    },[dispatch])
+  
+
+  const getName =(e)=>{
+
+  }
+
  
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -54,10 +68,7 @@ export const Main = () => {
     return null;
   }
 
-  useEffect(() => {
-    cookieCheck();
-    setAllow(false)
-  }, []); 
+ 
  
 
   return (

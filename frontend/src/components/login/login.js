@@ -53,7 +53,7 @@ export const Login = () => {
       else{
         const allowse = userData.email.includes('@');
         // console.log(allowse)
-        if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and pasword' }); 
+        if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and password' }); 
         else if(!allowse) setError({ testcase: 'Email includes @' });
         else if(userData.email === '') setError({ testcase: 'Enter your email' });            
         else if(userData.password === '') setError({ testcase: 'Enter your password' }); 

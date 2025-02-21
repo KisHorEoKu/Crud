@@ -1,47 +1,72 @@
-import { GET_USER_DATA,DELETE_USERS,CREATE_USERS ,VALIDATE_TOKENS} from '../actions/formaction.ts'
+import { createSlice } from '@reduxjs/toolkit';
+import { validateToken , getUsers, createUser, updateUser} from '../actions/formaction.ts';
 
 const initialState = {
   users: [],
   authenticatedUser: null,
-  validate: null,
-  error: null,
-
+  validate: [],  
+  createUser:'',
+  error: '',
+  loading: false,
 };
 
-export const formReducer = (state = initialState, action) => {
-  console.log("reducer accessed")  
-  switch (action.type) {
-    case CREATE_USERS:
-      return {
-        ...state,
-        users: [...state.users, action.payload], 
-      };
-    case GET_USER_DATA:
-      return {
-        ...state,
-       users: action.payload,
-        
-      };
-      
-    case DELETE_USERS:
-      return {
-        ...state,
-        users: state.users.filter((user) => user.id !== action.payload), 
-      };
+const formSlice = createSlice({
+  name: 'form',
+  initialState,
+  reducers: {
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(validateToken.pending, (state) => {
+        state.error = '';
+        state.loading = true;
+      })
+      .addCase(validateToken.fulfilled, (state, action) => {
+        state.loading = false;
+        state.validate = action.payload;  
+      })
+      .addCase(validateToken.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error?.message || 'Validation failed';  
+      })
+      .addCase(getUsers.pending,(state )=>{
+          state.loading= true;
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;  
+      })
+      .addCase(getUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error?.message || 'Users fetch failed';  
+      })
+      .addCase(createUser.pending,(state)=>{
+        state.loading= true;
+      })
+      .addCase(createUser.fulfilled,(state, action)=>{
+        state.loading = false;
+        state.createUser= (action.meta.requestId)
+      })
+      .addCase(createUser.rejected,(state, action)=>{
+        state.loading= false;
+        state.error = action.error?.message || 'Users Not Created';  
 
-      case VALIDATE_TOKENS:
-        return{
-          ...state,
-          validate: true
-        };
-    // case AUTH_USER:
-    //   return {
-    //     ...state,
-    //     authenticatedUser: action.payload, 
-    //   };
-    default:
-      return state;
-  }
-};
+      })
+      .addCase(updateUser.pending,(state)=>{
+        state.loading= true;
+      })
+      .addCase(updateUser.fulfilled,(state, action)=>{
+        state.loading = false;
+        state.createUser= (action.meta.requestId)
+      })
+      .addCase(updateUser.rejected,(state, action)=>{
+        state.loading= false;
+        state.error = action.error?.message || 'Users Not Updated';  
 
- 
+      })
+     
+  },
+  
+});
+
+export default formSlice.reducer;  

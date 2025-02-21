@@ -15,9 +15,10 @@ export class SessionController {
 
     @Post('validate')
     async validate (@Req() request:Request ):Promise<any>{
-         const sessions =  await this.sessionService.findSession(request.body.data);
+         const sessions =  await this.sessionService.findSession(request.body.data.sessionId);
 
         if(sessions){
+            console.log("session there")
              const form_user =  await this.formService.findUser(sessions.user_id);
              const user_data ={ name:form_user?.user_name }
              return user_data;
