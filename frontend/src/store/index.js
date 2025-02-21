@@ -1,14 +1,11 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import { formReducer } from './reducer/formreducer.ts';
-import {thunk} from 'redux-thunk'; 
+import { configureStore } from '@reduxjs/toolkit';
+import  formReducer  from './reducer/formreducer.ts'; 
 
-// Combining the enhancers (browser extension and middleware combination) 0_0
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
-  formReducer,
-  composeEnhancers(applyMiddleware(thunk)) 
-);
+const store = configureStore({
+  reducer: {
+    form: formReducer, 
+  },
+  
+});
 
 export default store;

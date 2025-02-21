@@ -35,8 +35,6 @@ import { Preloader1 } from '../preloader/preloader1.js';
     if (preloader) {
       return <Preloader1 />;
     }
-  
-     
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -44,23 +42,25 @@ import { Preloader1 } from '../preloader/preloader1.js';
         setErrors(errorShow);
           
         if(Object.keys(errorShow).length === 0){
-
-            const response = await createUser(formData);
+            const response = await dispatch(createUser(formData)).unwrap();
+            console.log(response)
            if(response === true){
-            navigate('/login')
-            setFormData({
-              full_name: '',
-              user_name: '',
-              email: '',
-              phone: '',
-              password: '',
-              confirm_password: '',
-              grade: '',
-              gender: '',
-              sports: '',
-            })
+                navigate('/login')
+                setFormData({
+                  full_name: '',
+                  user_name: '',
+                  email: '',
+                  phone: '',
+                  password: '',
+                  confirm_password: '',
+                  grade: '',
+                  gender: '',
+                  sports: '',
+              })
            }
-
+           else{
+            console.log("usernot created")
+           }
         }
         else window.scrollTo({
           top : 0,
@@ -128,14 +128,13 @@ import { Preloader1 } from '../preloader/preloader1.js';
         else if(data.phone.length == 10){
               let result ="" +data.phone;
               const first = parseInt(result.charAt(0));
-              console.log(first)
 
               if (!data.email.trim() && ![6, 7, 8, 9].includes(first)) {
                 errors.phone = "Invalid number";
               }           
         }
         if(data.gender === '')errors.gender = "Please select gender"
-        if(data.sports === '')errors.sports = "Please select gender"
+        if(data.sports === '')errors.sports = "Please select sports"
         if(!data.password.trim()) errors.password = "Enter the password";
         if(!data.confirm_password.trim()) errors.confirm_password ="Enter the confirm password"
         if(data.password.trim() !== data.confirm_password.trim()) {errors.confirm_password ="Confirm password does not match"}

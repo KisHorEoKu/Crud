@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate  , useLocation} from 'react-router-dom';
 import './navbar.css';
 import Cookies from 'js-cookie';
+import {  useSelector  } from 'react-redux'
 
 
 export const Navbar = () => {
@@ -24,6 +25,8 @@ export const Navbar = () => {
         });
     };
     const [respdrop, setRespDrop ] = useState(false);
+    const {validate} = useSelector((state)=> state.form)
+
     const showresdrop = (e) =>{
         e.preventDefault();
 
@@ -65,7 +68,7 @@ export const Navbar = () => {
                                                         <img src="/images/man.png"  alt=""/>
                                                     </div>
                                                     <div class="protxt">
-                                                        <span id="loginname"></span>
+                                                        <span id="loginname">{validate ? validate.name : ''}</span>
                                                     </div>
                                                     </a>
                                                     <ul class="udropinul">

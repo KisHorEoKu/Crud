@@ -13,11 +13,15 @@ export const Notfound = () => {
         navigate('/dashboard')
     }
     const users = useSelector((state)=> state.users)
-    useEffect(async ()=>{
-        const response = await dispatch(getUsers());
+    useEffect( ()=>{
+        const getUser= async() =>{
+            const response = await dispatch(getUsers());
+
+        }
+        getUser();
     },[dispatch])
  
-    console.log("404 not found",users)
+    console.log("404 not found",users);
 
 
   return (

@@ -3,9 +3,8 @@ import './dashboard.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Popup } from '../confirmation/popup';
 import { Preloader1 } from '../preloader/preloader1';
-import { Edit } from '../form/edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers , deleteUser} from '../../store/actions/formaction.ts';
+import { getUsers , deleteUser, updateUser} from '../../store/actions/formaction.ts';
 
 export const Dashboard = () => {
 
@@ -22,37 +21,15 @@ export const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user_name1 = location.state?.userData.name;
-    const users = useSelector((state)=> state.users)
-    
+    const users = useSelector((state)=> state.users)  
 
-    useEffect(() => {
-        // const fetchData = async () => {
-        //     try {
-        //         const res = await fetch('http://localhost:5000/form/Getusers', {
-        //             method: "GET",
-        //             headers: { "Content-Type": "application/json" },
-        //         })
-        //         const data = await res.json();
-        //         dispatch(getUsers(data))
-        //         setTabledata(data);
-        //         setFilteredData(data);
-
-                
-                
-        //     } catch (error) {
-        //         console.error('Error fetching users:', error);
-        //     }
-        // };
-        // fetchData();
-        
-          
-       
-    }, []);
-
+  
     useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await dispatch(getUsers());    
+            const response = await dispatch(getUsers()).unwrap();    
+         
+           console.log(response)
             setFilteredData(response);
             setTabledata(response);
            
@@ -62,14 +39,12 @@ export const Dashboard = () => {
         };
     
         fetchUsers();
-      }, [dispatch]);
-
+    }, [dispatch]);
     useEffect(() => {
         setTimeout(() => {
             setPreloader(false);
         }, 1000);
     }, []);
-
     const search = (e) => {
         const query = e.target.value.toLowerCase();
         setSearchQuery(query);
@@ -85,14 +60,14 @@ export const Dashboard = () => {
             setFilteredData(filtered);
         }
     };
-
     if (preloader) {
         return <Preloader1 />;
     }
     const confirm = (e) =>{
         if(e == 'yes'){
+
             setDeletes(true) ; setShow(false); 
-            deleteuser();
+            deleteuserID();
         }
         else{
             setDeletes(false) ; setShow(false);
@@ -103,9 +78,10 @@ export const Dashboard = () => {
         const id = parseInt(e.target.getAttribute('data-id'));
         setIds(id);
     }
-    const deleteuser = async() =>{
+    const deleteuserID = async() =>{
         try{
             const response = await deleteUser(ids);
+            console.log(response)
             if(response === true){
                 window.location.reload();
             }
@@ -130,31 +106,46 @@ export const Dashboard = () => {
         setEditingData(null); 
     };
     const updateData = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/dashboard/update`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(editingData),
-          })
-          const updatedData = await response.json();
-          setFilteredData(
-            filteredData.map((item) =>
-              item.id === updatedData.id ? updatedData : item
-            )
-          );
-          window.location.reload()
-          setEditingData(null); 
-        } catch (error) {
-          console.error("Error updating data:", error);
+
+        try{
+            const response = await dispatch(updateUser(editingData)).unwrap();
+            if(response ===  true){
+                window.location.reload();
+                setEditingData(null); 
+            }
+            else{
+
+            }
         }
+        catch(error){
+            console.error("Error updating data:", error);
+        }
+
+
+        // try {
+        //   const response = await fetch(`http://localhost:5000/dashboard/update`, {
+        //     method: "PUT",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(editingData),
+        //   })
+        //   const updatedData = await response.json();
+        //   setFilteredData(
+        //     filteredData.map((item) =>
+        //       item.id === updatedData.id ? updatedData : item
+        //     )
+        //   );
+        //   window.location.reload()
+        //   setEditingData(null); 
+        // } catch (error) {
+        //   console.error("Error updating data:", error);
+        // }
     };
   
 
     return (
         <div className="tablee">
-            {edit ? <Edit /> : ' '}
             <div className="tablemain">
                 <div className="tablemain2">
                     <div className="tblemain">
