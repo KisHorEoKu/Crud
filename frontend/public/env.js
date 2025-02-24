@@ -1,8 +1,7 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\Intern\\AppData\\Roaming",
-  "APP_EXPOSED_IP": "",
-  "APP_URL": "http://localhost:5000",
+  "APP_URL": "http://192.168.1.85:5000",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_21184_JWRAVDOKGQTRDWDS",
   "COLOR": "1",
   "COLORTERM": "truecolor",

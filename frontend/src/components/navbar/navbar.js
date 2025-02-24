@@ -2,34 +2,34 @@ import React, { useState } from 'react';
 import { useNavigate  , useLocation} from 'react-router-dom';
 import './navbar.css';
 import Cookies from 'js-cookie';
-import {  useSelector  } from 'react-redux'
+import {  useDispatch , useSelector  } from 'react-redux'
+import { destroySession } from '../../store/actions/formaction.ts';
 
 
 export const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [navopen , setNavOpen] = useState(false);
     const currentpath = location.pathname;
     const destroy = async (e) => {     
         e.preventDefault();
         Cookies.remove('token');
         navigate('/login');
-
-        const response = await fetch('http://localhost:5000/session/destroy', {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ "cookie": Cookies.get('token') })
-        });
+        try{
+            await dispatch(destroySession( Cookies.get('token'))).unwrap();
+        }catch(error){
+            console.log(error)
+        }
     };
     const [respdrop, setRespDrop ] = useState(false);
-    const {validate} = useSelector((state)=> state.form)
+    const validate = useSelector((state)=> state.form.validate)
 
     const showresdrop = (e) =>{
         e.preventDefault();
-
+        navopen ? setNavOpen(false) : setNavOpen(true)
         if(window.innerWidth <= 768){ 
             respdrop ? setRespDrop(false) : setRespDrop(true);
         }
@@ -65,15 +65,15 @@ export const Navbar = () => {
                                                 <li>
                                                     <a href="#" onClick={showresdrop}>
                                                     <div class="proimg">
-                                                        <img src="/images/man.png"  alt=""/>
+                                                        <img src="/images/man.png"  alt="man"/>
                                                     </div>
                                                     <div class="protxt">
-                                                        <span id="loginname">{validate ? validate.name : ''}</span>
+                                                        <span id="loginname" class="font-semibold">{validate ? validate : ''}</span>
                                                     </div>
                                                     </a>
-                                                    <ul class="udropinul">
-                                                        <li><a href=""><label><i class="fa-solid fa-gear"></i></label> Settings</a></li>
-                                                        <li><a href=""><label><i class="fa-solid fa-pen"></i></label> updates</a></li>
+                                                    <ul class={ navopen ? 'udropinul show': 'udropinul'}>
+                                                        <li><a href="" onClick={showresdrop}><label><i class="fa-solid fa-gear"></i></label> Settings</a></li>
+                                                        <li><a href="" onClick={showresdrop}><label><i class="fa-solid fa-pen"></i></label> updates</a></li>
                                                         <li><a href="" onClick={destroy}><label><i class="fa-solid fa-arrow-right-from-bracket"></i></label> logout</a></li>
                                                     </ul>
                                                 </li>
@@ -83,6 +83,14 @@ export const Navbar = () => {
                                             <div class="respnavmain">
                                                 <div class="respnav1">
                                                     <ul>
+                                                        <li>
+                                                            <a href="#">
+                                                                <div class="ulimg"> <img src="/images/man.png" alt="man"/> </div>
+                                                                <div class="ulmail">
+                                                                    <span>test@gmail.com</span>
+                                                                </div>
+                                                            </a> 
+                                                        </li>
                                                         <li><a class="font-semibold " href=""> <label><i class="fa-solid fa-house"></i></label> home</a></li>
                                                         <li><a class="font-semibold " href=""><label><i class="fa-solid fa-pen"></i></label>updates</a></li>
                                                         <li><a class="font-semibold " href=""><label><i class="fa-solid fa-gear"></i></label>settings</a></li>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { validateToken , getUsers, createUser, updateUser} from '../actions/formaction.ts';
+import { validateToken , getUsers, createUser, updateUser ,destroySession , validateAuthenticate} from '../actions/formaction.ts';
 
 const initialState = {
   users: [],
@@ -18,12 +18,11 @@ const formSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(validateToken.pending, (state) => {
-        state.error = '';
         state.loading = true;
       })
       .addCase(validateToken.fulfilled, (state, action) => {
         state.loading = false;
-        state.validate = action.payload;  
+        state.validate = action.payload.name;  
       })
       .addCase(validateToken.rejected, (state, action) => {
         state.loading = false;
@@ -50,7 +49,6 @@ const formSlice = createSlice({
       .addCase(createUser.rejected,(state, action)=>{
         state.loading= false;
         state.error = action.error?.message || 'Users Not Created';  
-
       })
       .addCase(updateUser.pending,(state)=>{
         state.loading= true;
@@ -62,8 +60,29 @@ const formSlice = createSlice({
       .addCase(updateUser.rejected,(state, action)=>{
         state.loading= false;
         state.error = action.error?.message || 'Users Not Updated';  
-
       })
+     .addCase(destroySession.pending,(state)=>{
+        state.loading =  true;
+     })
+     .addCase(destroySession.fulfilled,(state, action)=>{
+        state.loading = false;
+        state.users = [];
+        state.validate = [];
+     })
+     .addCase(destroySession.rejected, (state, action)=>{
+        state.loading = false;
+     })
+     .addCase(validateAuthenticate.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(validateAuthenticate.fulfilled, (state, action) => {
+      state.loading = false;
+      state.validate = action.payload.name
+    })
+    .addCase(validateAuthenticate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error?.message || 'validateAuthenticate  failed';  
+    })
      
   },
   

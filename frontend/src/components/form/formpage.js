@@ -43,7 +43,6 @@ import { Preloader1 } from '../preloader/preloader1.js';
           
         if(Object.keys(errorShow).length === 0){
             const response = await dispatch(createUser(formData)).unwrap();
-            console.log(response)
            if(response === true){
                 navigate('/login')
                 setFormData({
@@ -59,7 +58,6 @@ import { Preloader1 } from '../preloader/preloader1.js';
               })
            }
            else{
-            console.log("usernot created")
            }
         }
         else window.scrollTo({
@@ -68,8 +66,7 @@ import { Preloader1 } from '../preloader/preloader1.js';
           behavior: 'smooth'
         });
     }
-    
-    const showed = (e)=>{console.log("called"); setMessage(true)}
+    const showed = (e)=>{ setMessage(true)}
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         if (type === 'checkbox' && name ==='sports') {
@@ -86,7 +83,6 @@ import { Preloader1 } from '../preloader/preloader1.js';
           });
         } 
         else if(type === 'number' && name === 'phone') {
-          console.log("numberd")
           if(value.length <= 10 ){
             setFormData({
               ...formData,
@@ -407,33 +403,36 @@ import { Preloader1 } from '../preloader/preloader1.js';
                                             type="checkbox"
                                             name="sports"
                                             value="badminton"
+                                            id="badminton-checkbox"
                                             checked={formData.sports.includes('badminton')}
                                             onChange={handleChange}
                                             onClick={validateField}
                                         />
-                                        <label>Badminton</label>
+                                        <label for="badminton-checkbox">Badminton</label>
                                     </div>
                                     <div className="rnginp">
                                         <input
                                             type="checkbox"
                                             name="sports"
                                             value="hockey"
+                                            id="hockey-checkbox"
                                             checked={formData.sports.includes('hockey')}
                                             onChange={handleChange}
                                             onClick={validateField}
                                         />
-                                        <label>Hockey</label>
+                                        <label for="hockey-checkbox">Hockey</label>
                                     </div>
                                     <div className="rnginp">
                                         <input
                                             type="checkbox"
                                             name="sports"
                                             value="volley ball"
+                                            id="volley-checkbox"
                                             checked={formData.sports.includes('volley ball')}
                                             onChange={handleChange}
                                             onClick={validateField}
                                         />
-                                        <label>Volleyball</label>
+                                        <label for="volley-checkbox">Volleyball</label>
                                     </div>
                                 </div>
                             </div>

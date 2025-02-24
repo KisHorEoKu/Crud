@@ -2,14 +2,16 @@
 .tleftul >li{width: 10%;text-align: center;}
 .topbars,.udropul{width: 100%;}
 .topbarmain{width: 80%;}
-.userdrop{width: 20%;display: flex;align-items: center;}
+.userdrop{width: 20%;display: flex;align-items: center;  position: relative;  z-index: 9;}
 .udropul > li{position: relative;}
-.udropul > li > ul{position: absolute; padding: 5%; left: 0;
-  /* top: 4vw; */
-}
+.udropul > li > ul{position: absolute; padding: 5%; left: 0;    border-radius: 10px;
+  top: 4vw;
+}.udropinul > li,.udropinul > li:hover > a{transition: all 0.5s ease-in-out;}
+.udropinul > li:hover{background-color: #000; }
+.udropinul > li:hover > a,.udropinul > li:hover > a > label > i{color: #fff;}
+
 .udropinul > li > a{display: block; text-transform: uppercase; font-size: 1.1vw;  padding: 4% 9%;}
 .udropinul > li:not(:last-child) > a{border-bottom: 1px solid #d4d4d4;}
-
 .tleftul > li > a{display: block ;  font-size: 1.3vw; text-transform: uppercase; padding: 21% 1%; position: relative; transition: all 0.5s ease-in-out;}
 .tleftul > li > a::after {
   content: '';
@@ -34,18 +36,21 @@
   -4px 0 12px -2px rgba(0, 0, 0, 0.2);
   color: #fff;
   transition: all 0.5s ease-in-out;
-  display: none;
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
   /* transform: translateY(-8%);
   opacity: 0; */
 }
+.udropinul.show{opacity: 1; transform: translateY(0%); pointer-events: all;}
+
 .udropinul > li > a > label { margin-right: 5%;}
 
-.userdrop > .udropul > li:hover .udropinul,
+/* .userdrop > .udropul > li:hover .udropinul,
 .userdrop > .udropul > li > a:hover + .udropinul {
-  /* transform: translateY(0%);
-    opacity: 1; */
+
     display: block;
-}
+} */
 .respnav {
   position: fixed;
   top: 60px;
@@ -69,13 +74,21 @@
   .respnav1 > ul > li > a { display: block;padding: 3% 1%; text-transform: uppercase;}
   .respnav1 > ul > li > a > label { margin-right: 5%;}
   .respnav.show{transform: translateX(0%);}
+  .respnav1 > ul > li:first-child > a{display: flex; gap: 10px; text-transform: lowercase;}
+  .respnav1 > ul > li:first-child{border-bottom: 1px solid #dedada; margin-bottom: 5%;}
+  .ulimg{width: 20%;}
+  .ulmail{display: flex; align-items: center; font-size: 2.1vw; width: 70%;}
 
 }
 @media only screen and (max-width:39em) {
   .flexed-row{flex-direction: row;}
   .flex-star0t{justify-content: flex-start!important; width: 50%;}
   .userdrop{width: 50%;}
-  .topbars{display: flex;align-items: center;}
-  .proimg {width: 40%;}
+  .topbars{display: flex;align-items: center; justify-content: flex-end;}
+  .proimg {width: 50%;}
   .fa-solid, .fas {font-size: 1em;}
+  .protxt{display: none;}
+  .udropul > li > a{justify-content: flex-end;}
+  .ulmail { font-size: 0.8em;}
+
 }

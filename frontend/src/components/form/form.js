@@ -13,7 +13,6 @@ const Form = () => {
   const [showForm, SetShowForm] = useState(1);
   const lang = (e)=>{
     e.preventDefault();
-    console.log(dropdown)
     dropdown ? setDropdown(false):setDropdown(true)
        
   }
@@ -90,7 +89,6 @@ const Form = () => {
     e.preventDefault();
     try {
         
-        console.log("form submitted")
       const response = await fetch('http://localhost:5000/user',{
         method:"POST",
         headers:{
@@ -117,7 +115,6 @@ const Form = () => {
   const handleChange =(e) =>{
       const {name , value} = e.target;
       setFormData({...formData,[name]:value})
-      console.log(formData)
   }
   const validateForm = (data) => {
     const errors = {};

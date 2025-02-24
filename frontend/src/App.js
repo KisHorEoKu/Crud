@@ -6,7 +6,6 @@ import { Dashboard } from './components/dashboard/dashboard';
 import { Navbar } from './components/navbar/navbar';
 import { Login } from './components/login/login';
 import { Main } from './main.js';
-import { Trunkboard } from './components/trunkboard/trunkboard.js';
 import { Notfound } from './components/notfound/notfound.js';
 import { Reset } from './components/reset/reset.js';
 import { Footer } from './components/footer/footer.js';
@@ -25,7 +24,6 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Formpage />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/trunk" element={<Trunkboard />} />
                   <Route path="/login" element={<Formmain />} />
                   <Route path="/form/reset" element={<Reset />} />
                   <Route path="*" element={<Notfound />} />
