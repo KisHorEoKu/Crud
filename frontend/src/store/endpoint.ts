@@ -1,8 +1,9 @@
 import axios from 'axios';
 import env from "react-dotenv";
+import { data } from 'react-router-dom';
 
 const instance = axios.create({
-  baseURL: env.APP_URL ,
+  baseURL: env?.APP_URL || 'http://localhost:5000' ,
   timeout: 1000,
   headers: { 'X-Custom-Header': 'foobar' }
 });
@@ -29,5 +30,21 @@ export const VALIDATE_TOKEN = (sessionId) =>{
         data : {sessionId}
     })
 }
-// export const AUTH_USER = ()
 
+export const DESTROY_SESSION = (cookie)=>{
+  return instance.delete('/session/destroy',{
+        data : {cookie}
+  })
+}
+
+export const VALIDATE_RESET_TOKEN =(token:string,password:string, confirm_password:string)=>{
+  return instance.post('/form/token/validate',{
+        token,
+        password,
+        confirm_password
+  })
+};
+
+export const FORM_AUTHETICATE = (userdata) =>{
+  return instance.post('/form/auth',userdata)
+}

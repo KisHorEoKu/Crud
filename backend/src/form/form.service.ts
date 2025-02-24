@@ -20,8 +20,9 @@ export class FormService {
                 private readonly Appservice:AppService
 
              ){}
-                common = new commonController();
-
+                
+    common = new commonController();
+    
     async create(formDTO:CreateFormDTO):Promise<form>{
         const formObj = this.formRepository.create(formDTO);
         return await  this.formRepository.save(formObj);
@@ -32,9 +33,7 @@ export class FormService {
             select: ["id", "email", "full_name", "user_name", "phone", "grade", "sports", "gender"]
         });
     }
-
     async delete(id:number):Promise<void>{
-        console.log(id);
         await this.formRepository.delete(id);
     }
     async findUser(id:number){
@@ -43,7 +42,6 @@ export class FormService {
     async findUserByEmail(email: string) {
         return await this.formRepository.findOne({ where: { email } });
     }
-    
     async validateOtp(otp:number){
         return await this.OtpRepository.findOne({where: { otp } });
     }
@@ -65,13 +63,12 @@ export class FormService {
         }
         
        return false;
-    }
-    
+    } 
     async auth(email: string, password: string, @Req() res: Response): Promise<any> {
         const hashedPassword = await this.common.hashPassword(password);
         const user = await this.formRepository.findOne({ where: { email, password: hashedPassword } });  
         if (!user) {
-            return null;
+            return false;
         }      
         const sessionID = uuidv4();
         const session = new Session();
@@ -81,7 +78,7 @@ export class FormService {
 
         await this.SessionRepository.save(session);
 
-        const cookie = {"message" :"authethicated" , sessionIds: sessionID};
+        const cookie = {"message" :"authethicated" , sessionIds: sessionID ,name:user.user_name};
         return cookie;
     }
     async validateToken(token:string):Promise<any>{

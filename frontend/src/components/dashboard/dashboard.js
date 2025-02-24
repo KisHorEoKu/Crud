@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Popup } from '../confirmation/popup';
 import { Preloader1 } from '../preloader/preloader1';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers , deleteUser, updateUser} from '../../store/actions/formaction.ts';
+import { getUsers , deleteUser, updateUser,deleteUsers} from '../../store/actions/formaction.ts';
 
 export const Dashboard = () => {
 
@@ -14,8 +14,6 @@ export const Dashboard = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [show, setShow] = useState(false);
     const [ids, setIds] = useState(null);
-    const [deletes, setDeletes] = useState(false);
-    const [edit,setEdit ] = useState(false);
     const [preloader, setPreloader] = useState(true);
     const location = useLocation();
     const dispatch = useDispatch();
@@ -28,8 +26,6 @@ export const Dashboard = () => {
         const fetchUsers = async () => {
           try {
             const response = await dispatch(getUsers()).unwrap();    
-         
-           console.log(response)
             setFilteredData(response);
             setTabledata(response);
            
@@ -37,7 +33,6 @@ export const Dashboard = () => {
             console.error('Error fetching users:', error);
           }
         };
-    
         fetchUsers();
     }, [dispatch]);
     useEffect(() => {
@@ -64,13 +59,13 @@ export const Dashboard = () => {
         return <Preloader1 />;
     }
     const confirm = (e) =>{
-        if(e == 'yes'){
+        if(e == 'Yes'){
 
-            setDeletes(true) ; setShow(false); 
+             setShow(false); 
             deleteuserID();
         }
         else{
-            setDeletes(false) ; setShow(false);
+            setShow(false);
         }
     }
     const userdelete = async(e) =>{
@@ -80,10 +75,12 @@ export const Dashboard = () => {
     }
     const deleteuserID = async() =>{
         try{
-            const response = await deleteUser(ids);
-            console.log(response)
+            const response = await dispatch(deleteUsers(ids)).unwrap();
             if(response === true){
                 window.location.reload();
+            }
+            else{
+                alert("User have not deleted")
             }
         }
         catch(error){
@@ -106,7 +103,6 @@ export const Dashboard = () => {
         setEditingData(null); 
     };
     const updateData = async () => {
-
         try{
             const response = await dispatch(updateUser(editingData)).unwrap();
             if(response ===  true){
@@ -120,27 +116,7 @@ export const Dashboard = () => {
         catch(error){
             console.error("Error updating data:", error);
         }
-
-
-        // try {
-        //   const response = await fetch(`http://localhost:5000/dashboard/update`, {
-        //     method: "PUT",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(editingData),
-        //   })
-        //   const updatedData = await response.json();
-        //   setFilteredData(
-        //     filteredData.map((item) =>
-        //       item.id === updatedData.id ? updatedData : item
-        //     )
-        //   );
-        //   window.location.reload()
-        //   setEditingData(null); 
-        // } catch (error) {
-        //   console.error("Error updating data:", error);
-        // }
+   
     };
   
 

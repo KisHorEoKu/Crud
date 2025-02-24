@@ -2,40 +2,40 @@ import React, { useState } from 'react'
 import { useNavigate , useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 import { validateToken } from './store/actions/formaction.ts'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+
 
 export const Main = () => {
 
     const navigate = useNavigate(); 
     const [allow ,setAllow] =useState(true);
     const location = useLocation();
-    const dispatch = useDispatch();
-
+    const dispatch = useDispatch(); 
     useEffect(()=>{
+    },[])
+    useEffect(()=>{ 
       const cookieCheck = async() => {
         const data = getCookie('token');
+
         if (data) {
           try{
-            console.log("API entered to validate");
-              const response = dispatch(validateToken(data)).unwrap(); 
-              // const response =validateToken(data);
-
-              console.log(response.data)
-    
-              if(response.data && allow){
+              const response = await dispatch(validateToken(data)).unwrap();
+              console.log(response)
+              if(response.data && allow ){
                 const availableRoutes = ['/login', '/'];
                 const path = location.pathname;
                 getName();
                 if(! availableRoutes.includes(path)) navigate(path, { state:{ userData: data } }) 
-                setAllow(false)
+                setAllow(false);
+              }
+              else if(response === ''){
+                Cookies.remove('token');
+                window.location.reload();
               }
               else{ 
                  if(!allow){navigate('/dashboard', { state:{ userData: data } });}
-                setAllow(true); 
-                console.log(allow) 
-
-
-                      
+                setAllow(true);    
               }
           }
           catch(error){
@@ -43,10 +43,9 @@ export const Main = () => {
           }          
         }
         else{   
-          console.log("entered to else part ")
           const availableRoutes = ['/login', '/','/form/reset'];
           const path = location.pathname;
-          if( availableRoutes.includes(path)) navigate(path) 
+          if( availableRoutes.includes(path)) {navigate(path) }
           else navigate('/login')  
         }
       };
@@ -54,8 +53,6 @@ export const Main = () => {
       setAllow(false)
     
     },[dispatch])
-  
-
   const getName =(e)=>{
 
   }

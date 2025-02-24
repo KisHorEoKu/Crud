@@ -90,9 +90,9 @@ a{text-decoration: none; color: #000;}
 }.inp12 > label{   font-size: 1.2vw;}
 .rndinpsmain{display: flex;flex-wrap: wrap; margin: 2% 0;}
 .rnginp{width: 25%;}
-.rnginp > label{font-size: 1.2vw; text-transform: capitalize;}
+.rnginp > label{font-size: 1.2vw; text-transform: capitalize;cursor: pointer;}
 .rnginp{margin-right: 3%;}
-.inp > select{padding: 3%;border: 1px solid #b8b8b8;border-radius: 4px; font-size: 1.2vw; color: #888787;}
+.inp > select{padding: 3.9% 3%;border: 1px solid #b8b8b8;border-radius: 4px; font-size: 1.2vw; color: #888787;}
 .fsubmit{width: 50%; margin: 0 auto;padding: 1% 0;}
 .submitinp{text-align: center; margin-top: 1%;}
 .fsubmit {background-image: linear-gradient(to right bottom, #75abdd, #7ba7e9, #8ba1f2, #a398f6, #c08cf3);}
@@ -193,9 +193,15 @@ img{height: auto; width: 100%;}
 }
 
 #invert{
-  padding: 2% 0;
+  font-size: 1.4vw;
+  font-weight: 400;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2% 0%;
 }
-#okbtn {margin: 3% 0%;padding: 2% 5%;border-radius: 7px;background-color: #000;color: #fff;}
+
+#okbtn {margin: 3% 0%;    text-transform: capitalize;  padding: 2% 5%;border-radius: 7px;background-color: #000;color: #fff;}
 .ftxt > h3 {transition: all 0.5s ease-in-out;}
 .headermain {width: 92%;margin: 0 auto;display: flex;padding: 0.8% 0%;justify-content: space-between;}
 .darks{background-color: #000!important;}
@@ -210,6 +216,10 @@ img{height: auto; width: 100%;}
 .userinfo > button{
   padding: 7px 15px;    font-size: 1.1vw;
 }
+.color-1{background-color: #DC5668!important; transition: all 0.5s ease-in-out;}
+.color-1:hover{background-color: #f87b8b!important;}
+.color-2{background-color: #5086EA!important; transition: all 0.5s ease-in-out;}
+.color-2:hover{background-color: #5d96ff!important;}
 
 
 .navbar > header{ position: fixed; width: 100%; background-color: rgba(255, 255, 255, .9); z-index: 99;}

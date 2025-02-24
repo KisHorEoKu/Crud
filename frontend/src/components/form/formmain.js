@@ -6,6 +6,8 @@ import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Forgot } from '../forgot/forgot';
 import { Preloader1 } from '../preloader/preloader1';
+import { validateAuthenticate } from '../../store/actions/formaction.ts';
+import { useDispatch } from 'react-redux'
 
 
 export const Formmain = () => {
@@ -21,6 +23,8 @@ export const Formmain = () => {
       const [allow, setAllow] = useState(false);
       const [preloader, setPreloader] = useState(true);
       const  navigate = useNavigate();
+      const dispatch = useDispatch();
+      
 
        useEffect(() => {
               setTimeout(() => {
@@ -32,31 +36,21 @@ export const Formmain = () => {
         }
       const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        try {
-          const response = await fetch('http://localhost:5000/form/auth', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          });
-          const data = await response.json().catch((err) => {
-            setError({ testcase: 'Invalid response format' });
-          });     
+        try {      
+          const response = await dispatch(validateAuthenticate(userData)).unwrap();
+          console.log(response)
     
-          if(data && data.sessionIds){
+          if(response && response.sessionIds){
             setAllow(true);
-            // console.log("went in if part") ;
             navigate('/dashboard');
-            Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
+            Cookies.set('token',`${response.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
             return;
           } 
           else{
             const allowse = userData.email.includes('@');
-            // console.log(allowse)
             if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and pasword' }); 
-            else if(!allowse) setError({ testcase: 'Email includes @' });
-            else if(userData.email === '') setError({ testcase: 'Enter your email' });            
+            else if(userData.email === '') setError({ testcase: 'Enter your email' });  
+            else if(!allowse) setError({ testcase: 'Email includes @' });          
             else if(userData.password === '') setError({ testcase: 'Enter your password' }); 
             else setError({ testcase: 'Entered credentials are wrong' });  
           }
@@ -85,7 +79,6 @@ export const Formmain = () => {
       };
       const forgot = async (e)=> {
         e.preventDefault();
-        console.log(forshow)
         setFor(true);  
 
       }

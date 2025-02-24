@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import './reset.css'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { validateResetToken } from '../../store/actions/formaction.ts';
+import { useSelector , useDispatch } from 'react-redux';
 
 export const Reset = () => {
         const [params]  = useSearchParams();
         const value = params.get('token');
         const navigate = useNavigate();
+        const dispatch = useDispatch();
 
-        // console.log(value)
         const [pass, setPass] = useState({
             password: '',
             confirm_password :'',
@@ -29,28 +31,19 @@ export const Reset = () => {
             try{
                 if(pass.password !== pass.confirm_password ) {
                     setError({message:'Password does not match'})
-                    console.log(error.message)
                     return
                 } 
                 else if(pass.password ==='' && pass.confirm_password ===''){
                     setError({message:'Password should not be empty '})
                 }
-                else{
-                    const response = await fetch('http://localhost:5000/form/token/validate',{
-                        method:'POST',
-                        headers:{
-                            'Content-Type':'application/json'
-                        },
-                        body:JSON.stringify({"token":pass.token,"password":pass.password, "confirm_password" :pass.confirm_password})
-                    }).then((res)=> res.json())
-                    .then((res) =>{
-                        if(res === false){
-                            setError({message:'Session has expired'})
-                        }else{
-                            setPop(true)
-                        }
-                        console.log(res)
-                    })
+                else{                    
+                    const response = await dispatch(validateResetToken(pass)).unwrap();
+                    if(response === true){
+                        setPop(true)
+                    }
+                    else{
+                        setError({message:'Session has expired'})
+                    }
                 }
                
             }

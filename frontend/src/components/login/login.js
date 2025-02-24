@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './login.css'; 
-import { Common } from '../common/common';
 import { useNavigate } from 'react-router-dom';
 import './login.css'; 
-import { Navigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { Forgot } from '../forgot/forgot';
 import { Preloader1 } from '../preloader/preloader1';
+import { validateAuthenticate } from '../../store/actions/formaction.ts';
+import { useDispatch } from 'react-redux'
 
 export const Login = () => {
   const [userData, setUserData] = useState({
@@ -19,6 +18,7 @@ export const Login = () => {
   const[forshow , setFor] = useState(false);
   const [allow, setAllow] = useState(false);
   const  navigate = useNavigate();
+  const dispatch = useDispatch();
   const [preloader, setPreloader] = useState(true);
   
   useEffect(() => {
@@ -32,33 +32,33 @@ export const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/form/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json().catch((err) => {
-        setError({ testcase: 'Invalid response format' });
-      });     
+      // const response = await fetch('http://localhost:5000/form/auth', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(userData),
+      // });
 
-      if(data && data.sessionIds){
-        setAllow(true);
-        // console.log("went in if part") ;
-        navigate('/dashboard');
-        Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
-        return;
-      } 
-      else{
-        const allowse = userData.email.includes('@');
-        // console.log(allowse)
-        if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and password' }); 
-        else if(!allowse) setError({ testcase: 'Email includes @' });
-        else if(userData.email === '') setError({ testcase: 'Enter your email' });            
-        else if(userData.password === '') setError({ testcase: 'Enter your password' }); 
-        else setError({ testcase: 'Entered credentials are wrong' });  
-      }
+      // const response = await dispatch(validateAuthenticate(userData));
+          
+
+      // if(data && data.sessionIds){
+      //   console.log(data.name)
+      //   setAllow(true);
+      //   // navigate('/dashboard');
+      //   // Cookies.set('token',`${data.sessionIds}`,{ expires: 3 / 1440, path: '', secure: true, sameSite: 'strict' });
+      //   // return;
+      // } 
+      // else{
+      //   const allowse = userData.email.includes('@');
+      //   // console.log(allowse)
+      //   if(userData.email === '' && userData.password === '')setError({ testcase: 'Enter your email and password' }); 
+      //   else if(!allowse) setError({ testcase: 'Email includes @' });
+      //   else if(userData.email === '') setError({ testcase: 'Enter your email' });            
+      //   else if(userData.password === '') setError({ testcase: 'Enter your password' }); 
+      //   else setError({ testcase: 'Entered credentials are wrong' });  
+      // }
     } 
     catch (error) {
       console.log("error is throwing check for updates")
