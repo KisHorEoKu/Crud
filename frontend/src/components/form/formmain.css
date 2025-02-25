@@ -152,12 +152,15 @@
     .fohed > h3 {font-size: 2.9vw;}
     .flex-column > label{font-size: 2vw;}
     .span ,.p{font-size: 1.7vw;}
+    .errtextfor > span { font-size: 1.5vw;}
   }
 
   @media only screen and (max-width:39em) {
-    .formes {width:auto; margin: 0 30px;}
+    .formes {width:auto; margin: 0 30px;    gap: 17px;}
     .fohed > h3 {font-size: 1.2em;}
     .flex-column > label,.span, .p {font-size: 1em;}
     .fmain {margin-top: 35%;margin-bottom: 15%; }
+    .errtextfor > span { font-size: 0.8em;}
+
 
   }

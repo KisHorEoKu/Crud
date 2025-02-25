@@ -15,7 +15,16 @@ ul{padding: 0;}
 .tabless{ overflow-y: scroll;height: 57vh;}
 .tabless::-webkit-scrollbar {display: none;}
 .tb2hed{display: flex;}
-.tb2hed1{width: 30%;}
+.tb2hed1{width: 30%; position: relative;}
+.tb2hed1::after {
+  position: absolute;
+  bottom: -8%;
+  content: '';
+  height: 2px;
+  width: 44px;
+  background-image: linear-gradient(to right bottom, #4c7cec, #6f7df1, #8c7ef5, #a77ff8, #c07ff9);
+  left: 0.3%;
+}
 .tb2hed1 > h4{font-size: 2.2vw;text-transform: capitalize;margin: 0;    font-weight: 400;}
 .tb2hed2ul{display: flex;justify-content: flex-end;}
 .tb2hed2ul > li > a{    padding: 6px 12px; width: 5%; transition: all 0.5s ease-in-out;    background-color: #efefef;border-radius: 5px;}

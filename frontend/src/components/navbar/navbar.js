@@ -14,7 +14,8 @@ export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [navopen , setNavOpen] = useState(false);
     const currentpath = location.pathname;
-    const destroy = async (e) => {     
+    const destroy = async (e) => {
+        navopen ? setNavOpen(false) : setNavOpen(true)
         e.preventDefault();
         Cookies.remove('token');
         navigate('/login');
@@ -29,9 +30,11 @@ export const Navbar = () => {
 
     const showresdrop = (e) =>{
         e.preventDefault();
-        navopen ? setNavOpen(false) : setNavOpen(true)
         if(window.innerWidth <= 768){ 
             respdrop ? setRespDrop(false) : setRespDrop(true);
+        }
+        else{
+            navopen ? setNavOpen(false) : setNavOpen(true)
         }
     }
     return (
