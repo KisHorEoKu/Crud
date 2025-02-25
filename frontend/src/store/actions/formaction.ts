@@ -109,12 +109,17 @@ export const validateToken = createAsyncThunk(
 export const validateResetToken = createAsyncThunk( 
   'form/token/validate',
   async(pass,thunkAPI)=>{
-    const response = await VALIDATE_RESET_TOKEN(pass.token , pass.password , pass.confirm_password);
-    if(response && response.status === 201){
-      return true;
+    try{
+      const response = await VALIDATE_RESET_TOKEN(pass.token , pass.password , pass.confirm_password);
+        if(response && response.status === 201){
+          return true;
+        }
+        else{
+          return false;
+        }
     }
-    else{
-      return false;
+    catch(error){
+      console.log(error)
     }
   }
 );
